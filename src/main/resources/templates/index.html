@@ -37,7 +37,7 @@
     <!-- Customer Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="/" th:text="${appName}">Pahana Edu</a>
+            <a class="navbar-brand fw-bold text-primary" href="/" th:text="${appName}">Pahana Edu Bookshop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,7 +47,10 @@
                         <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/products"><i class="fas fa-graduation-cap"></i> Courses</a>
+                        <a class="nav-link" href="/books"><i class="fas fa-book"></i> Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories"><i class="fas fa-list"></i> Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about"><i class="fas fa-info-circle"></i> About</a>
@@ -82,45 +85,45 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold mb-4" th:text="${message}">Welcome to Pahana Education</h1>
-                    <p class="lead mb-4">Discover our comprehensive educational courses and resources. Learn from industry experts and advance your career with our certified programs.</p>
+                    <h1 class="display-4 fw-bold mb-4" th:text="${message}">Welcome to Colombo's Premier Bookshop</h1>
+                    <p class="lead mb-4">Discover our extensive collection of books spanning all genres. From academic texts to bestselling novels, we serve hundreds of customers each month with quality books and exceptional service.</p>
                     <div class="d-flex gap-3">
-                        <a href="/products" class="btn btn-light btn-lg px-4">
-                            <i class="fas fa-graduation-cap"></i> Browse Courses
+                        <a href="/books" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-book"></i> Browse Books
                         </a>
                         <a href="/register" class="btn btn-outline-light btn-lg px-4">
-                            <i class="fas fa-user-plus"></i> Get Started
+                            <i class="fas fa-user-plus"></i> Create Account
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <i class="fas fa-graduation-cap" style="font-size: 200px; opacity: 0.3;"></i>
+                    <i class="fas fa-book-open" style="font-size: 200px; opacity: 0.3;"></i>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Courses Section -->
+    <!-- Featured Books Section -->
     <section class="py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Featured Courses</h2>
-                <p class="lead text-muted">Start your learning journey with our most popular courses</p>
+                <h2 class="display-5 fw-bold">Featured Books</h2>
+                <p class="lead text-muted">Discover our most popular and recommended books</p>
             </div>
             
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card product-card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Web+Development" class="card-img-top" alt="Web Development Course">
+                        <img src="https://via.placeholder.com/300x400?text=Academic+Textbooks" class="card-img-top" alt="Academic Textbooks">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Full Stack Web Development</h5>
-                            <p class="card-text">Master modern web development with React, Node.js, and MongoDB. Build real-world applications from scratch.</p>
+                            <h5 class="card-title">Academic Textbooks</h5>
+                            <p class="card-text">Comprehensive collection of university and school textbooks covering all subjects from mathematics to literature.</p>
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-success fs-6">Beginner</span>
-                                    <span class="h5 text-primary mb-0">$299</span>
+                                    <span class="badge bg-primary fs-6">Education</span>
+                                    <span class="h5 text-primary mb-0">LKR 2,500</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="addToCart('web-dev-course', 299)">
+                                <button class="btn btn-primary w-100" onclick="addToCart('academic-books', 2500)">
                                     <i class="fas fa-cart-plus"></i> Add to Cart
                                 </button>
                             </div>
@@ -130,16 +133,16 @@
                 
                 <div class="col-md-4">
                     <div class="card product-card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Data+Science" class="card-img-top" alt="Data Science Course">
+                        <img src="https://via.placeholder.com/300x400?text=Fiction+Novels" class="card-img-top" alt="Fiction Novels">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Data Science & Analytics</h5>
-                            <p class="card-text">Learn Python, machine learning, and data visualization. Become a data scientist with hands-on projects.</p>
+                            <h5 class="card-title">Bestselling Novels</h5>
+                            <p class="card-text">Latest fiction and bestselling novels from renowned authors. Perfect for leisure reading and book clubs.</p>
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-warning text-dark fs-6">Intermediate</span>
-                                    <span class="h5 text-primary mb-0">$399</span>
+                                    <span class="badge bg-success fs-6">Fiction</span>
+                                    <span class="h5 text-primary mb-0">LKR 1,800</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="addToCart('data-science-course', 399)">
+                                <button class="btn btn-primary w-100" onclick="addToCart('fiction-novels', 1800)">
                                     <i class="fas fa-cart-plus"></i> Add to Cart
                                 </button>
                             </div>
@@ -149,16 +152,16 @@
                 
                 <div class="col-md-4">
                     <div class="card product-card h-100">
-                        <img src="https://via.placeholder.com/300x200?text=Digital+Marketing" class="card-img-top" alt="Digital Marketing Course">
+                        <img src="https://via.placeholder.com/300x400?text=Professional+Books" class="card-img-top" alt="Professional Books">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Digital Marketing Mastery</h5>
-                            <p class="card-text">Master SEO, social media marketing, Google Ads, and content marketing strategies for business growth.</p>
+                            <h5 class="card-title">Professional Development</h5>
+                            <p class="card-text">Business, technology, and professional development books to advance your career and knowledge.</p>
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-success fs-6">Beginner</span>
-                                    <span class="h5 text-primary mb-0">$199</span>
+                                    <span class="badge bg-warning text-dark fs-6">Business</span>
+                                    <span class="h5 text-primary mb-0">LKR 3,200</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="addToCart('digital-marketing-course', 199)">
+                                <button class="btn btn-primary w-100" onclick="addToCart('professional-books', 3200)">
                                     <i class="fas fa-cart-plus"></i> Add to Cart
                                 </button>
                             </div>
@@ -168,8 +171,8 @@
             </div>
             
             <div class="text-center mt-5">
-                <a href="/products" class="btn btn-outline-primary btn-lg">
-                    <i class="fas fa-plus-circle"></i> View All Courses
+                <a href="/books" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-plus-circle"></i> View All Books
                 </a>
             </div>
         </div>
@@ -182,9 +185,9 @@
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 bg-transparent">
                         <div class="card-body">
-                            <i class="fas fa-certificate fa-3x text-primary mb-3"></i>
-                            <h5 class="card-title">Certified Courses</h5>
-                            <p class="card-text">Get industry-recognized certificates upon course completion to boost your career prospects.</p>
+                            <i class="fas fa-truck fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Island-wide Delivery</h5>
+                            <p class="card-text">Fast and reliable delivery service across Sri Lanka. Get your books delivered to your doorstep.</p>
                         </div>
                     </div>
                 </div>
@@ -192,17 +195,17 @@
                     <div class="card border-0 bg-transparent">
                         <div class="card-body">
                             <i class="fas fa-users fa-3x text-success mb-3"></i>
-                            <h5 class="card-title">Expert Instructors</h5>
-                            <p class="card-text">Learn from industry professionals with years of real-world experience and expertise.</p>
+                            <h5 class="card-title">Trusted by Hundreds</h5>
+                            <p class="card-text">Serving hundreds of satisfied customers each month with quality books and excellent service.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 bg-transparent">
                         <div class="card-body">
-                            <i class="fas fa-clock fa-3x text-warning mb-3"></i>
-                            <h5 class="card-title">Flexible Learning</h5>
-                            <p class="card-text">Study at your own pace with lifetime access to course materials and community support.</p>
+                            <i class="fas fa-credit-card fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">Flexible Payment</h5>
+                            <p class="card-text">Multiple payment options including cash, card, and digital payments for your convenience.</p>
                         </div>
                     </div>
                 </div>
@@ -213,14 +216,14 @@
     <!-- Call to Action -->
     <section class="py-5 bg-primary text-white">
         <div class="container text-center">
-            <h2 class="display-6 fw-bold mb-3">Ready to Start Learning?</h2>
-            <p class="lead mb-4">Join thousands of students who have transformed their careers with our courses</p>
+            <h2 class="display-6 fw-bold mb-3">Ready to Explore Our Book Collection?</h2>
+            <p class="lead mb-4">Join hundreds of book lovers who trust Pahana Edu Bookshop for their reading needs</p>
             <div class="d-flex justify-content-center gap-3">
                 <a href="/register" class="btn btn-light btn-lg px-4">
-                    <i class="fas fa-rocket"></i> Start Free Trial
+                    <i class="fas fa-user-plus"></i> Create Account
                 </a>
                 <a href="/contact" class="btn btn-outline-light btn-lg px-4">
-                    <i class="fas fa-phone"></i> Contact Us
+                    <i class="fas fa-phone"></i> Visit Our Store
                 </a>
             </div>
         </div>
@@ -230,30 +233,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 text-start">
-                    <h6 class="fw-bold">Pahana Education</h6>
-                    <p class="small text-muted">Empowering learners worldwide with quality education and professional development courses.</p>
+                    <h6 class="fw-bold">Pahana Edu Bookshop</h6>
+                    <p class="small text-muted">Colombo's premier bookshop serving hundreds of customers monthly with quality books and exceptional service.</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="fw-bold">Quick Links</h6>
                     <div class="d-flex flex-column">
                         <a href="/about" class="text-light text-decoration-none small">About Us</a>
-                        <a href="/contact" class="text-light text-decoration-none small">Contact</a>
-                        <a href="/help" class="text-light text-decoration-none small">Support</a>
+                        <a href="/contact" class="text-light text-decoration-none small">Visit Store</a>
+                        <a href="/help" class="text-light text-decoration-none small">Help & Support</a>
                         <a href="/terms" class="text-light text-decoration-none small">Terms & Conditions</a>
                     </div>
                 </div>
                 <div class="col-md-4 text-end">
-                    <h6 class="fw-bold">Follow Us</h6>
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="#" class="text-light"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-light"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-light"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
-                    </div>
+                    <h6 class="fw-bold">Visit Our Store</h6>
+                    <p class="small text-muted">123 Main Street<br>Colombo 07, Sri Lanka<br>Phone: +94 11 234 5678</p>
                 </div>
             </div>
             <hr class="text-muted">
-            <p class="small mb-0">&copy; 2025 Pahana Education. All rights reserved.</p>
+            <p class="small mb-0">&copy; 2025 Pahana Edu Bookshop. All rights reserved.</p>
         </div>
     </footer>
 
@@ -263,13 +261,13 @@
         let cart = [];
         let cartCount = 0;
 
-        function addToCart(courseId, price) {
-            cart.push({id: courseId, price: price});
+        function addToCart(bookId, price) {
+            cart.push({id: bookId, price: price});
             cartCount++;
             document.querySelector('.cart-badge').textContent = cartCount;
             
             // Show success message
-            alert('Course added to cart! You can proceed to checkout or continue browsing.');
+            alert('Book added to cart! You can proceed to checkout or continue browsing.');
         }
 
         // Update cart badge on page load

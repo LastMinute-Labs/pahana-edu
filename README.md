@@ -6,7 +6,7 @@
 ![Maven](https://img.shields.io/badge/Maven-Build-blue)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
-A comprehensive billing management system for educational institutions built with Spring Boot, MongoDB, and Thymeleaf.
+A comprehensive web-based billing management system for Pahana Edu Bookshop in Colombo City. Built with Spring Boot, MongoDB, and Thymeleaf to manage customer accounts and billing information efficiently.
 
 ## 🚀 Features
 
@@ -17,38 +17,43 @@ A comprehensive billing management system for educational institutions built wit
 - Logout and session timeout handling
 
 ✅ **Customer Account Management**
-- Add, edit, and view customers
+- Add, edit, and view customer accounts
 - Search customer by account number or name
-- Validation (e.g., phone number format)
+- Phone number validation and management
+- Customer billing history tracking
 
-✅ **Item Management**
-- CRUD operations for items (name, price, description)
-- Display item list with sorting/search
+✅ **Book/Item Management**
+- CRUD operations for books and items (title, author, price, stock)
+- Display book catalog with sorting/search
+- Inventory management for bookshop stock
 
 ✅ **Bill Calculation**
-- Input: units consumed → Output: total amount
-- Auto-fetch item unit price for calculation
-- Display breakdown with total
-- Optional: generate printable/PDF bill
+- Input: quantity purchased → Output: total amount
+- Auto-fetch book/item price for calculation
+- Display itemized breakdown with total
+- Generate printable/PDF bills for customers
 
 ✅ **Database Integration (Spring Data MongoDB)**
 - Use MongoDB for data persistence
-- Entities: Customer, Item, Bill, User
+- Entities: Customer, Book/Item, Bill, User
+- Customer account details with phone number as primary key
 - Relationships and field validation via annotations
 
 ✅ **User Interface**
 - HTML + Thymeleaf with Bootstrap styling
-- Navigation bar: Dashboard, Customers, Items, Billing, Help, Logout
+- Customer-facing: Browse books, view cart, purchase
+- Admin dashboard: Customers, Books, Billing, Reports, Help
 - Error/success alerts using th:if
 
 ✅ **Help Section**
-- Instructions for login, adding data, and billing
+- Instructions for browsing books, account creation, and billing
+- Customer support information
 - Displayed as a static HTML or Thymeleaf page
 
 ### Testing (20 Marks Scope)
 ✅ **Unit Testing**
 - Use JUnit and Spring Boot Test
-- Test classes for: Authentication, Customer CRUD, Billing logic
+- Test classes for: Authentication, Customer CRUD, Book management, Billing logic
 - Use mock data where needed
 
 ✅ **Test Plan & Coverage**
@@ -158,7 +163,8 @@ pahana-edu/
 
 6. **Access the Application**
    - Open your browser and navigate to: `http://localhost:8080`
-   - Default credentials: `admin` / `admin123`
+   - Browse books as a customer or login as admin
+   - Default admin credentials: `admin` / `admin123`
 
 ### Database Setup
 
@@ -266,12 +272,12 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 ## 📋 TODO
 
 - [ ] Implement User Authentication with Spring Security
-- [ ] Create Customer Management CRUD operations
-- [ ] Develop Item Management system
-- [ ] Build Bill Calculation functionality
-- [ ] Add PDF generation for bills
-- [ ] Implement search and filtering
-- [ ] Add data validation
+- [ ] Create Customer Account Management with phone number as primary key
+- [ ] Develop Book/Item Management system
+- [ ] Build Bill Calculation functionality for bookshop purchases
+- [ ] Add PDF generation for customer bills
+- [ ] Implement book search and filtering
+- [ ] Add customer and inventory validation
 - [ ] Create comprehensive test suite
 - [ ] Set up CI/CD pipeline
 - [ ] Deploy to cloud platform
@@ -292,4 +298,4 @@ For support and questions:
 
 ---
 
-**Note**: This project is part of the ICBT CIS6003 module coursework for developing a billing system for educational institutions.
+**Note**: This project is a web-based billing system for Pahana Edu Bookshop in Colombo City, developed as part of the ICBT CIS6003 module coursework to replace manual customer account management with an efficient computerized system.

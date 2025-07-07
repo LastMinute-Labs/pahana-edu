@@ -9,14 +9,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("appName", "Pahana Education");
-        model.addAttribute("message", "Transform Your Future with Quality Education");
+        model.addAttribute("appName", "Pahana Edu Bookshop");
+        model.addAttribute("message", "Welcome to Colombo's Premier Bookshop");
         return "index";
     }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        model.addAttribute("appName", "Pahana Edu Billing System");
+        model.addAttribute("appName", "Pahana Edu Bookshop - Admin");
         return "dashboard";
     }
 
