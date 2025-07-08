@@ -98,7 +98,7 @@ pahana-edu/
 │       ├── java/
 │       └── resources/
 ├── docs/
-├── sql/
+├── mongodb/
 ├── pom.xml
 ├── .gitignore
 └── README.md

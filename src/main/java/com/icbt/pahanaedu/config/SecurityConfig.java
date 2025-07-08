@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authz -> authz
                         // Public pages - accessible without login
-                        .requestMatchers("/", "/home", "/books", "/books/**", "/categories", "/categories/**", 
+                        .requestMatchers("/", "/home", "/books", "/books/**", "/categories", "/categories/**",
                                 "/about", "/contact", "/cart", "/cart/**", "/register", "/checkout", "/checkout/**",
                                 "/purchase", "/purchase/**", "/help", "/terms", "/privacy")
                         .permitAll()
