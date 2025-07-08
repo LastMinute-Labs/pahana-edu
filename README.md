@@ -158,7 +158,7 @@ pahana-edu/
 
 5. **Run the Application**
    ```bash
-   mvn spring-boot:run
+   mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
    ```
 
 6. **Access the Application**
