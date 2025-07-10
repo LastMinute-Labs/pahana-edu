@@ -14,10 +14,10 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("appName", "Pahana Edu Bookshop - Admin");
-        return "dashboard";
-    }
+    // @GetMapping("/dashboard")
+    // public String dashboard(Model model) {
+    //     model.addAttribute("appName", "Pahana Edu Bookshop - Admin");
+    //     return "dashboard";
+    // }
 
 }
