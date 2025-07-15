@@ -84,10 +84,11 @@ public class HomeController {
         return "help";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-    model.addAttribute("appName", "Pahana Edu Bookshop - Admin");
-    return "dashboard";
-    }
+    // Removed dashboard mapping since it conflicts with AuthController
+    // @GetMapping("/dashboard")
+    // public String dashboard(Model model) {
+    // model.addAttribute("appName", "Pahana Edu Bookshop - Admin");
+    // return "dashboard";
+    // }
 
 }
