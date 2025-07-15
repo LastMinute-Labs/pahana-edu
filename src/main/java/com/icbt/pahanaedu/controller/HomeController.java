@@ -84,6 +84,4 @@ public class HomeController {
         return "help";
     }
 
-    // Dashboard mapping removed to avoid conflict with AuthController
-    // The dashboard functionality is handled by AuthController#dashboard
 }
