@@ -137,31 +137,6 @@ public class AuthController {
     }
     
     /**
-     * Admin dashboard
-     */
-    @GetMapping("/admin/dashboard")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String adminDashboard(Authentication authentication, Model model) {
-        String username = authentication.getName();
-        User user = userService.findByUsername(username).orElse(null);
-        
-        if (user == null) {
-            return "redirect:/login";
-        }
-        
-        model.addAttribute("user", user);
-        model.addAttribute("username", username);
-        
-        // Add admin-specific data
-        model.addAttribute("totalUsers", userService.getTotalUsers());
-        model.addAttribute("activeUsers", userService.getActiveUsers());
-        model.addAttribute("adminCount", userService.getAdminCount());
-        model.addAttribute("userCount", userService.getUserCount());
-        
-        return "admin/dashboard";
-    }
-    
-    /**
      * User dashboard
      */
     @GetMapping("/user/dashboard")
