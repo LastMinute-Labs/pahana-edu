@@ -4,74 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${appName}">Pahana Edu Bookshop</title>
+    
+    <!-- Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/modern-design-system.css" rel="stylesheet">
+    
     <style>
-        /* Professional Academic Color Palette */
-        :root {
-            --oxford-blue: #002147;
-            --ivory-cream: #F8F5EC;
-            --dusty-rose: #C4A69F;
-            --muted-sage: #A8B5A2;
-            --antique-gold: #C6A664;
-            --charcoal-gray: #3E3E3E;
-            --maroon-red: #6C2C2F;
-            
-            /* Extended palette for gradients and states */
-            --oxford-blue-light: #1a3659;
-            --oxford-blue-dark: #001122;
-            --ivory-cream-dark: #F0ECE1;
-            --dusty-rose-light: #D4B6AF;
-            --sage-dark: #98A592;
-            --gold-light: #D6B674;
-        }
-        
-        /* Global Styles */
-        body {
-            background-color: var(--ivory-cream);
-            color: var(--charcoal-gray);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-        }
-        
-        /* Navigation Redesign */
-        .navbar {
-            background: linear-gradient(135deg, var(--oxford-blue) 0%, var(--oxford-blue-light) 100%) !important;
-            border-bottom: 3px solid var(--antique-gold);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0, 33, 71, 0.15);
-        }
-        
-        .navbar-brand {
-            color: var(--ivory-cream) !important;
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .navbar-nav .nav-link {
-            color: var(--ivory-cream) !important;
-            font-weight: 500;
-            margin: 0 0.5rem;
-            padding: 0.75rem 1rem !important;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            background: var(--antique-gold);
-            color: var(--oxford-blue) !important;
-            transform: translateY(-2px);
-        }
-        
-        /* Hero Section Redesign */
+        /* Page-specific modern styles */
         .hero-section {
-            background: linear-gradient(135deg, var(--oxford-blue) 0%, var(--oxford-blue-light) 50%, var(--muted-sage) 100%);
-            color: var(--ivory-cream);
-            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 50%, var(--accent-emerald) 100%);
+            color: var(--text-inverse);
+            padding: calc(var(--space-24) + 80px) 0 var(--space-20) 0; /* Add space for fixed navbar */
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero-section::before {
@@ -81,455 +35,432 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" fill="rgba(198,166,100,0.1)"><path d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,128C672,107,768,85,864,90.7C960,96,1008,128,1032,144L1056,160L1056,320L1032,320C1008,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') no-repeat bottom;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,128C672,107,768,85,864,90.7C960,96,1008,128,1032,144L1056,160L1056,320L1032,320C1008,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
             background-size: cover;
         }
         
-        .hero-section .container {
+        .hero-content {
             position: relative;
             z-index: 2;
         }
         
-        /* Professional Book Cards */
-        .book-card {
-            background: var(--ivory-cream);
-            border: 2px solid transparent;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            height: 100%;
-            box-shadow: 0 8px 32px rgba(0, 33, 71, 0.1);
-        }
-        
-        .book-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 33, 71, 0.2);
-            border-color: var(--antique-gold);
-        }
-        
-        .book-cover-container {
-            height: 300px;
-            background: linear-gradient(135deg, var(--oxford-blue) 0%, var(--oxford-blue-light) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .book-cover-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 0%, rgba(198,166,100,0.1) 100%);
-        }
-        
-        .book-cover-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: var(--ivory-cream);
-            text-align: center;
-            padding: 2rem;
+            gap: var(--space-2);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-xl);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            margin-bottom: var(--space-6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        .book-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+        .hero-title {
+            font-size: clamp(var(--text-4xl), 4vw, var(--text-6xl));
+            font-weight: var(--font-extrabold);
+            line-height: var(--leading-tight);
+            margin-bottom: var(--space-6);
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            line-height: var(--leading-relaxed);
             opacity: 0.9;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            margin-bottom: var(--space-8);
+            max-width: 600px;
         }
         
-        .availability-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: var(--muted-sage);
-            color: var(--ivory-cream);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 3;
+        .hero-stats {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            margin-top: var(--space-12);
         }
         
-        .availability-badge.out-of-stock {
-            background: var(--maroon-red);
+        .stat-item {
+            text-align: center;
         }
         
-        .book-content {
-            padding: 2rem;
+        .stat-number {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            display: block;
+            margin-bottom: var(--space-2);
+        }
+        
+        .stat-label {
+            font-size: var(--text-sm);
+            opacity: 0.8;
+            font-weight: var(--font-medium);
+        }
+        
+        /* Modern book cards */
+        .book-card-modern {
+            background: var(--bg-primary);
+            border: 1px solid var(--neutral-200);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        
+        .book-card-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-300);
+        }
+        
+        .book-image-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+        
+        .book-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .book-card-modern:hover .book-image {
+            transform: scale(1.05);
+        }
+        
+        .book-badge {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            background: var(--primary-600);
+            color: var(--text-inverse);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .book-card-body {
+            padding: var(--space-6);
             flex-grow: 1;
-            background: var(--ivory-cream);
+            display: flex;
+            flex-direction: column;
         }
         
         .book-category {
-            background: linear-gradient(135deg, var(--dusty-rose), var(--dusty-rose-light));
-            color: var(--oxford-blue);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-            width: fit-content;
+            color: var(--primary-600);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-2);
         }
         
         .book-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--oxford-blue);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            line-height: var(--leading-snug);
+            margin-bottom: var(--space-2);
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
         
         .book-author {
-            color: var(--charcoal-gray);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            opacity: 0.8;
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-4);
         }
         
         .book-description {
-            color: var(--charcoal-gray);
-            font-size: 0.875rem;
-            line-height: 1.6;
-            margin-bottom: auto;
+            color: var(--text-tertiary);
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-4);
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            opacity: 0.8;
+            flex-grow: 1;
         }
         
-        .book-footer {
+        .book-card-footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: between;
             align-items: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--ivory-cream-dark);
+            gap: var(--space-4);
+            margin-top: auto;
         }
         
         .book-price {
-            background: linear-gradient(135deg, var(--antique-gold), var(--gold-light));
-            color: var(--oxford-blue);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(198,166,100,0.3);
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-600);
         }
         
-        .book-actions {
-            display: flex;
-            gap: 0.5rem;
+        .features-section {
+            padding: var(--space-20) 0;
+            background: var(--bg-primary);
         }
         
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--oxford-blue), var(--oxford-blue-light));
-            border: none;
-            color: var(--ivory-cream);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(0, 33, 71, 0.3);
-        }
-        
-        .btn-primary-custom:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 33, 71, 0.4);
-            background: linear-gradient(135deg, var(--oxford-blue-light), var(--muted-sage));
-            color: var(--ivory-cream);
-        }
-        
-        .btn-outline-custom {
-            background: transparent;
-            border: 2px solid var(--dusty-rose);
-            color: var(--dusty-rose);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-custom:hover {
-            background: var(--dusty-rose);
-            color: var(--ivory-cream);
-            transform: translateY(-2px);
-        }
-        
-        /* Category Cards */
-        .category-card {
-            background: var(--ivory-cream);
-            border: 2px solid var(--ivory-cream-dark);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
+        .feature-card {
             text-align: center;
-            transition: all 0.4s ease;
+            padding: var(--space-8);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--neutral-200);
+            transition: all var(--transition-normal);
             height: 100%;
-            position: relative;
-            overflow: hidden;
         }
         
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--antique-gold), var(--dusty-rose), var(--muted-sage));
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-300);
         }
         
-        .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(0, 33, 71, 0.15);
-            border-color: var(--antique-gold);
-        }
-        
-        .category-icon {
-            font-size: 3rem;
-            background: linear-gradient(135deg, var(--oxford-blue), var(--muted-sage));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-        }
-        
-        .category-title {
-            color: var(--oxford-blue);
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-        
-        .category-description {
-            color: var(--charcoal-gray);
-            opacity: 0.8;
-        }
-        
-        /* Cart Badge */
-        .cart-badge {
-            background: linear-gradient(135deg, var(--maroon-red), #8B3A3A);
-            color: var(--ivory-cream);
-            border-radius: 50%;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            min-width: 24px;
-            height: 24px;
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--text-inverse);
+            border-radius: var(--radius-2xl);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(108, 44, 47, 0.4);
+            font-size: var(--text-3xl);
+            margin: 0 auto var(--space-6);
         }
         
-        /* Sections */
-        .section-title {
-            color: var(--oxford-blue);
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .feature-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
         }
         
-        .section-subtitle {
-            color: var(--charcoal-gray);
-            opacity: 0.8;
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
         }
         
-        .bg-section {
-            background: linear-gradient(135deg, var(--ivory-cream-dark) 0%, var(--ivory-cream) 100%);
+        /* Testimonials */
+        .testimonials-section {
+            padding: var(--space-20) 0;
+            background: var(--bg-soft);
         }
         
-        /* Benefits Section */
-        .benefit-card {
-            background: var(--ivory-cream);
-            border: 2px solid var(--ivory-cream-dark);
-            border-radius: 16px;
-            padding: 2rem;
+        .testimonial-card {
+            background: var(--bg-primary);
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-sm);
             text-align: center;
-            height: 100%;
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal);
         }
         
-        .benefit-card:hover {
-            border-color: var(--antique-gold);
-            transform: translateY(-4px);
-        }
-        
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .benefit-icon.delivery { color: var(--oxford-blue); }
-        .benefit-icon.trusted { color: var(--muted-sage); }
-        .benefit-icon.payment { color: var(--antique-gold); }
-        
-        /* Call to Action */
-        .cta-section {
-            background: linear-gradient(135deg, var(--oxford-blue) 0%, var(--oxford-blue-light) 50%, var(--maroon-red) 100%);
-            color: var(--ivory-cream);
-        }
-        
-        .btn-cta-primary {
-            background: var(--antique-gold);
-            border: none;
-            color: var(--oxford-blue);
-            padding: 12px 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-cta-primary:hover {
-            background: var(--gold-light);
-            color: var(--oxford-blue);
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-lg);
             transform: translateY(-2px);
         }
         
-        .btn-cta-outline {
-            background: transparent;
-            border: 2px solid var(--ivory-cream);
-            color: var(--ivory-cream);
-            padding: 10px 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .testimonial-quote {
+            font-size: var(--text-lg);
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-6);
         }
         
-        .btn-cta-outline:hover {
-            background: var(--ivory-cream);
-            color: var(--oxford-blue);
+        .testimonial-author {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
         }
         
-        /* Footer */
-        .footer-custom {
-            background: var(--oxford-blue);
-            color: var(--ivory-cream);
-            border-top: 4px solid var(--antique-gold);
+        .testimonial-role {
+            color: var(--text-tertiary);
+            font-size: var(--text-sm);
         }
         
-        .footer-title {
-            color: var(--antique-gold);
-            font-weight: 700;
-            margin-bottom: 1rem;
+        /* Cart badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-rose);
+            color: var(--text-inverse);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
         }
         
-        .footer-link {
-            color: var(--ivory-cream);
-            text-decoration: none;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-link:hover {
-            color: var(--antique-gold);
-            opacity: 1;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: var(--space-16) 0 var(--space-12) 0;
+            }
+            
+            .hero-stats {
+                margin-top: var(--space-8);
+            }
+            
+            .book-card-body {
+                padding: var(--space-4);
+            }
+            
+            .feature-card {
+                padding: var(--space-6);
+            }
+            
+            .testimonial-card {
+                padding: var(--space-6);
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <!-- Modern Navigation -->
+    <nav class="navbar-modern fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/" th:text="${appName}">
-                <i class="fas fa-book-open me-2"></i>Pahana Edu Bookshop
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i>Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shop"><i class="fas fa-store me-1"></i>Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/help"><i class="fas fa-question-circle me-1"></i>Help</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item position-relative">
-                        <a class="nav-link" href="/cart">
-                            <i class="fas fa-shopping-cart me-1"></i>Cart
-                            <span class="cart-badge" id="cartCount">0</span>
-                        </a>
-                    </li>
-                    <!-- Show user links if authenticated -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-1"></i><span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu" style="border: 2px solid var(--antique-gold);">
-                            <li><a class="dropdown-item" href="/user/dashboard">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/my-orders">
-                                <i class="fas fa-shopping-bag me-2"></i>My Orders</a></li>
-                            <li><a class="dropdown-item" href="/profile">
-                                <i class="fas fa-user-cog me-2"></i>Profile</a></li>
-                            <li sec:authorize="hasRole('ADMIN')"><hr class="dropdown-divider"></li>
-                            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" href="/admin/dashboard">
-                                <i class="fas fa-cogs me-2"></i>Admin Panel</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </li>
-                    <!-- Show login link if not authenticated -->
-                    <li sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="/login"><i class="fas fa-user me-1"></i>Login</a>
-                    </li>
-                </ul>
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="navbar-brand-modern" href="/">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span th:text="${appName}">Pahana Edu Bookshop</span>
+                </a>
+                
+                <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 gap-lg-4 ms-auto mt-3 mt-lg-0">
+                        <nav class="d-flex flex-column flex-lg-row gap-2">
+                            <a class="nav-link-modern active" href="/">
+                                <i class="fas fa-home"></i>Home
+                            </a>
+                            <a class="nav-link-modern" href="/shop">
+                                <i class="fas fa-store"></i>Shop
+                            </a>
+                            <a class="nav-link-modern" href="/help">
+                                <i class="fas fa-life-ring"></i>Help
+                            </a>
+                        </nav>
+                        
+                        <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3">
+                            <a class="position-relative" href="/cart">
+                                <button class="btn btn-outline-primary">
+                                    <i class="fas fa-shopping-cart me-1"></i>
+                                    Cart
+                                </button>
+                                <span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cartCount">0</span>
+                            </a>
+                            
+                            <!-- Show user dropdown if authenticated -->
+                            <div sec:authorize="isAuthenticated()" class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle me-1"></i>
+                                    <span sec:authentication="name">User</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 modern-dropdown">
+                                    <li><a class="dropdown-item py-2" href="/user/dashboard">
+                                        <i class="fas fa-tachometer-alt me-2 text-primary"></i>Dashboard</a></li>
+                                    <li><a class="dropdown-item py-2" href="/my-orders">
+                                        <i class="fas fa-shopping-bag me-2 text-primary"></i>My Orders</a></li>
+                                    <li><a class="dropdown-item py-2" href="/profile">
+                                        <i class="fas fa-user-cog me-2 text-primary"></i>Profile</a></li>
+                                    <li sec:authorize="hasRole('ADMIN')"><hr class="dropdown-divider"></li>
+                                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item py-2" href="/admin/dashboard">
+                                        <i class="fas fa-shield-alt me-2 text-warning"></i>Admin Panel</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item py-2 text-danger" href="/logout">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Show login button if not authenticated -->
+                            <a sec:authorize="!isAuthenticated()" href="/login" class="btn-modern btn-primary">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Modern Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <h1 class="display-4 fw-bold mb-4" th:text="${message}">Welcome to Colombo's Premier Bookshop</h1>
-                    <p class="lead mb-4 opacity-90">Discover our carefully curated collection of academic texts, professional references, and timeless literature. Serving the scholarly community with wisdom, quality, and tradition since our founding.</p>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <a href="/shop" class="btn btn-cta-primary btn-lg px-4">
-                            <i class="fas fa-book me-2"></i>Explore Collection
-                        </a>
-                        <a href="/help" class="btn btn-cta-outline btn-lg px-4">
-                            <i class="fas fa-phone me-2"></i>Visit Our Store
-                        </a>
-                    </div>
+            <div class="hero-content text-center">
+                <div class="hero-badge animate-fade-in-up">
+                    <i class="fas fa-star"></i>
+                    Trusted by 10,000+ Students & Professionals
                 </div>
-                <div class="col-lg-5 text-center mt-5 mt-lg-0">
-                    <div class="position-relative">
-                        <i class="fas fa-university" style="font-size: 12rem; opacity: 0.2;"></i>
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <i class="fas fa-book-open" style="font-size: 6rem; opacity: 0.8;"></i>
+                
+                <h1 class="hero-title animate-fade-in-up" style="animation-delay: 0.1s;" th:text="${message}">
+                    Discover Knowledge That Transforms Minds
+                </h1>
+                
+                <p class="hero-subtitle animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Explore our carefully curated collection of academic texts, professional references, and timeless literature. 
+                    Your gateway to academic excellence and intellectual growth.
+                </p>
+                
+                <div class="d-flex justify-content-center gap-4 flex-wrap animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <a href="/shop" class="btn-modern btn-primary btn-lg">
+                        <i class="fas fa-book-open"></i>
+                        Explore Collection
+                    </a>
+                    <a href="/help" class="btn-modern btn-secondary btn-lg">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Visit Our Store
+                    </a>
+                </div>
+                
+                <div class="hero-stats animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <span class="stat-number">10,000+</span>
+                                <span class="stat-label">Books Available</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <span class="stat-number">5,000+</span>
+                                <span class="stat-label">Happy Customers</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -538,55 +469,53 @@
     </section>
 
     <!-- Featured Books Section -->
-    <section class="py-5">
+    <section class="features-section">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 section-title">Featured Scholarly Collection</h2>
-                <p class="lead section-subtitle">Carefully selected books that embody academic excellence and intellectual pursuit</p>
+                <h2 class="text-4xl font-bold text-primary mb-4">Featured Scholarly Collection</h2>
+                <p class="text-xl text-secondary max-width-600 mx-auto">
+                    Carefully selected books that embody academic excellence and intellectual pursuit
+                </p>
             </div>
             
             <!-- Dynamic Featured Items -->
             <div th:if="${featuredItems != null and #lists.size(featuredItems) > 0}">
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 mb-4" th:each="item : ${featuredItems}">
-                        <div class="book-card">
-                            <div class="book-cover-container">
-                                <div class="book-cover-content">
-                                    <i class="fas fa-book-open book-icon"></i>
-                                    <div class="fw-bold" th:text="${item.title}">Book Title</div>
+                    <div class="col-lg-3 col-md-6" th:each="item,itemStat : ${featuredItems}">
+                        <div class="book-card-modern">
+                            <div class="book-image-container">
+                                <!-- CSS-based book cover with dynamic colors -->
+                                <div class="book-cover-placeholder" 
+                                     th:class="'book-cover-placeholder book-cover-' + (${itemStat.index % 4} + 1)">
+                                    <div class="book-cover-content">
+                                        <i class="fas fa-book-open text-white fs-1 mb-3"></i>
+                                        <div class="book-cover-title text-white fw-bold text-center" th:text="${item.title}">Book Title</div>
+                                    </div>
                                 </div>
-                                <div class="availability-badge" 
-                                     th:class="${item.available} ? 'availability-badge' : 'availability-badge out-of-stock'"
-                                     th:text="${item.available} ? 'Available' : 'Out of Stock'">
-                                    Available
-                                </div>
+                                <div class="book-badge" th:if="${item.available}">Available</div>
+                                <div class="book-badge bg-danger" th:unless="${item.available}">Out of Stock</div>
                             </div>
                             
-                            <div class="book-content">
-                                <span class="book-category" th:text="${item.category}">Category</span>
-                                
+                            <div class="book-card-body">
+                                <div class="book-category" th:text="${item.category}">Category</div>
                                 <h3 class="book-title" th:text="${item.title}">Book Title</h3>
-                                
                                 <p class="book-author">
-                                    <i class="fas fa-user-edit me-2"></i>
+                                    <i class="fas fa-user me-1 text-primary"></i>
                                     <span th:text="${item.author}">Author Name</span>
                                 </p>
-                                
                                 <p class="book-description" th:text="${item.description}">
                                     Book description goes here...
                                 </p>
                                 
-                                <div class="book-footer">
+                                <div class="book-card-footer">
                                     <div class="book-price">
-                                        <i class="fas fa-rupee-sign me-1"></i>
-                                        <span th:text="${#numbers.formatDecimal(item.price, 1, 2)}">0.00</span>
+                                        LKR <span th:text="${#numbers.formatDecimal(item.price, 1, 2)}">0.00</span>
                                     </div>
-                                    
-                                    <div class="book-actions">
-                                        <a th:href="'/shop?search=' + ${item.title}" class="btn-outline-custom">
-                                            <i class="fas fa-eye"></i>
+                                    <div class="d-flex gap-2">
+                                        <a th:href="'/shop?search=' + ${item.title}" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye me-1"></i>View
                                         </a>
-                                        <button class="btn-primary-custom add-to-cart-btn" 
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" 
                                                 th:data-item-id="${item.id}"
                                                 th:data-item-price="${item.price}"
                                                 th:data-item-title="${item.title}"
@@ -602,121 +531,160 @@
             </div>
             
             <!-- Fallback content if no items -->
-            <div th:if="${featuredItems == null or #lists.size(featuredItems) == 0}" class="col-12 text-center">
-                <div class="alert alert-warning border-0" style="background: var(--dusty-rose); color: var(--oxford-blue);">
-                    <i class="fas fa-info-circle me-2"></i>
-                    No featured items available at the moment. Please explore our complete <a href="/shop" class="text-decoration-none fw-bold" style="color: var(--oxford-blue);">collection</a>.
+            <div th:if="${featuredItems == null or #lists.size(featuredItems) == 0}" class="text-center">
+                <div class="card-modern p-6">
+                    <i class="fas fa-book-open text-primary" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                    <h4 class="text-primary mb-3">Featured Collection Coming Soon</h4>
+                    <p class="text-secondary mb-4">Our curators are selecting the finest scholarly works for you.</p>
+                    <a href="/shop" class="btn-modern btn-primary">
+                        <i class="fas fa-search"></i>
+                        Browse All Books
+                    </a>
                 </div>
             </div>
             
             <div class="text-center mt-5">
-                <a href="/shop" class="btn-primary-custom btn-lg">
-                    <i class="fas fa-university me-2"></i>Explore Complete Library
+                <a href="/shop" class="btn-modern btn-accent btn-lg">
+                    <i class="fas fa-library"></i>
+                    Explore Complete Library
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="py-5 bg-section">
+    <!-- Modern Features Section -->
+    <section class="features-section">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 section-title">Academic Disciplines</h2>
-                <p class="lead section-subtitle">Browse our specialized collections organized by field of study</p>
+                <h2 class="text-4xl font-bold text-primary mb-4">Why Choose Pahana Edu?</h2>
+                <p class="text-xl text-secondary max-width-600 mx-auto">
+                    We're more than just a bookshop - we're your partner in academic excellence
+                </p>
             </div>
             
-            <!-- Dynamic Categories -->
-            <div th:if="${categories != null and #lists.size(categories) > 0}">
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 mb-4" th:each="category : ${categories}">
-                        <a th:href="'/shop?category=' + ${category}" class="text-decoration-none">
-                            <div class="category-card">
-                                <div class="category-icon"
-                                     th:class="${category == 'Programming' ? 'fas fa-code category-icon' : 
-                                                  category == 'Mathematics' ? 'fas fa-square-root-alt category-icon' : 
-                                                  category == 'Computer Science' ? 'fas fa-laptop-code category-icon' : 
-                                                  category == 'Physics' ? 'fas fa-atom category-icon' :
-                                                  category == 'Database' ? 'fas fa-database category-icon' :
-                                                  category == 'Software Engineering' ? 'fas fa-cogs category-icon' :
-                                                  'fas fa-graduation-cap category-icon'}">
-                                </div>
-                                <h5 class="category-title" th:text="${category}">Category</h5>
-                                <p class="category-description" th:text="'Scholarly resources in ' + ${#strings.toLowerCase(category)}">
-                                    Scholarly resources in category
-                                </p>
-                            </div>
-                        </a>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3 class="feature-title">Island-wide Delivery</h3>
+                        <p class="feature-description">
+                            Fast and secure delivery across Sri Lanka. Your books reach you in perfect condition, 
+                            ready to fuel your intellectual journey.
+                        </p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Fallback categories if no dynamic ones -->
-            <div th:if="${categories == null or #lists.size(categories) == 0}">
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <a href="/shop?category=Programming" class="text-decoration-none">
-                            <div class="category-card">
-                                <i class="fas fa-code category-icon"></i>
-                                <h5 class="category-title">Programming</h5>
-                                <p class="category-description">Computational thinking and software development</p>
-                            </div>
-                        </a>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3 class="feature-title">Curated Excellence</h3>
+                        <p class="feature-description">
+                            Hand-picked titles that meet the highest standards of academic rigor. 
+                            Every book is selected for its educational value and scholarly merit.
+                        </p>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <a href="/shop?category=Mathematics" class="text-decoration-none">
-                            <div class="category-card">
-                                <i class="fas fa-square-root-alt category-icon"></i>
-                                <h5 class="category-title">Mathematics</h5>
-                                <p class="category-description">Pure and applied mathematical sciences</p>
-                            </div>
-                        </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Trusted Community</h3>
+                        <p class="feature-description">
+                            Join thousands of students, professors, and professionals who trust us 
+                            for their academic and professional development needs.
+                        </p>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <a href="/shop?category=Computer Science" class="text-decoration-none">
-                            <div class="category-card">
-                                <i class="fas fa-laptop-code category-icon"></i>
-                                <h5 class="category-title">Computer Science</h5>
-                                <p class="category-description">Fundamental computing principles</p>
-                            </div>
-                        </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">Expert Support</h3>
+                        <p class="feature-description">
+                            Our knowledgeable team is here to help you find the right books for your 
+                            studies, research, or professional development.
+                        </p>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <a href="/shop?category=Physics" class="text-decoration-none">
-                            <div class="category-card">
-                                <i class="fas fa-atom category-icon"></i>
-                                <h5 class="category-title">Physics</h5>
-                                <p class="category-description">Natural philosophy and engineering</p>
-                            </div>
-                        </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="feature-title">15+ Years Experience</h3>
+                        <p class="feature-description">
+                            Over a decade of serving Sri Lanka's academic community with 
+                            dedication, expertise, and commitment to educational excellence.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Secure Shopping</h3>
+                        <p class="feature-description">
+                            Shop with confidence using our secure payment system. 
+                            Your personal and financial information is always protected.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="py-5">
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4 mb-4">
-                    <div class="benefit-card">
-                        <i class="fas fa-truck benefit-icon delivery"></i>
-                        <h5 class="section-title">Island-wide Delivery</h5>
-                        <p class="section-subtitle">Scholarly resources delivered with care across Sri Lanka. Your knowledge, our commitment.</p>
+            <div class="text-center mb-5">
+                <h2 class="text-4xl font-bold text-primary mb-4">What Our Customers Say</h2>
+                <p class="text-xl text-secondary max-width-600 mx-auto">
+                    Hear from the scholars, students, and professionals who trust us
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">
+                            "Pahana Edu has been my go-to source for academic books throughout my PhD. 
+                            Their collection is unmatched and delivery is always prompt."
+                        </p>
+                        <div class="testimonial-author">Dr. Priya Seneviratne</div>
+                        <div class="testimonial-role">Professor of Computer Science, University of Colombo</div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="benefit-card">
-                        <i class="fas fa-university benefit-icon trusted"></i>
-                        <h5 class="section-title">Academic Excellence</h5>
-                        <p class="section-subtitle">Trusted by educators and students alike. Quality publications for serious scholarship.</p>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">
+                            "The quality of books and customer service is exceptional. 
+                            I've been ordering from them for 5 years and never been disappointed."
+                        </p>
+                        <div class="testimonial-author">Rohan Perera</div>
+                        <div class="testimonial-role">Software Engineer & Part-time Lecturer</div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="benefit-card">
-                        <i class="fas fa-award benefit-icon payment"></i>
-                        <h5 class="section-title">Curated Selection</h5>
-                        <p class="section-subtitle">Hand-picked titles that meet the highest standards of academic rigor and intellectual merit.</p>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">
+                            "As a medical student, I need reliable sources. Pahana Edu's collection 
+                            of medical textbooks is comprehensive and always up-to-date."
+                        </p>
+                        <div class="testimonial-author">Ayesha Fernando</div>
+                        <div class="testimonial-role">Medical Student, Faculty of Medicine</div>
                     </div>
                 </div>
             </div>
@@ -724,49 +692,143 @@
     </section>
 
     <!-- Call to Action -->
-    <section class="py-5 cta-section">
+    <section class="hero-section" style="padding: 6rem 0;">
         <div class="container text-center">
-            <h2 class="display-6 fw-bold mb-3">Begin Your Intellectual Journey</h2>
-            <p class="lead mb-4 opacity-90">Join our community of scholars, researchers, and lifelong learners who trust Pahana Edu for their academic pursuits</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="/shop" class="btn btn-cta-primary btn-lg px-4">
-                    <i class="fas fa-search me-2"></i>Discover Knowledge
-                </a>
-                <a href="/help" class="btn btn-cta-outline btn-lg px-4">
-                    <i class="fas fa-map-marker-alt me-2"></i>Visit Our Library
-                </a>
+            <div class="hero-content">
+                <h2 class="hero-title" style="font-size: 3rem; margin-bottom: 2rem;">
+                    Ready to Begin Your Learning Journey?
+                </h2>
+                <p class="hero-subtitle" style="margin-bottom: 3rem;">
+                    Join thousands of students and professionals who trust Pahana Edu for their academic success.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="/shop" class="btn-modern btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Start Exploring
+                    </a>
+                    <a href="/help" class="btn-modern btn-secondary btn-lg">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Visit Our Store
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer-custom py-5">
+    <!-- Footer -->
+    <footer class="modern-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-start">
-                    <h6 class="footer-title">
-                        <i class="fas fa-book-open me-2"></i>Pahana Edu Bookshop
-                    </h6>
-                    <p class="small opacity-75">Colombo's distinguished academic bookshop, fostering intellectual growth through carefully curated scholarly publications and timeless literature.</p>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="footer-title">Scholarly Resources</h6>
-                    <div class="d-flex flex-column">
-                        <a href="/about" class="footer-link small mb-1">About Our Mission</a>
-                        <a href="/contact" class="footer-link small mb-1">Academic Partnerships</a>
-                        <a href="/help" class="footer-link small mb-1">Research Support</a>
-                        <a href="/terms" class="footer-link small mb-1">Terms & Conditions</a>
+            <div class="footer-content">
+                <div class="footer-main">
+                    <!-- Brand Section -->
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="logo-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <span class="logo-text">Pahana Edu</span>
+                        </div>
+                        <p class="footer-description">
+                            Empowering minds through quality education and exceptional books. 
+                            Your trusted partner in academic excellence and lifelong learning.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                            <li><a href="/shop"><i class="fas fa-shopping-cart"></i> Shop</a></li>
+                            <li><a href="/help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                            <li><a href="/about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="footer-section">
+                        <h4>Categories</h4>
+                        <ul class="footer-links">
+                            <li><a href="/shop?category=textbooks">Academic Textbooks</a></li>
+                            <li><a href="/shop?category=reference">Reference Books</a></li>
+                            <li><a href="/shop?category=fiction">Fiction & Literature</a></li>
+                            <li><a href="/shop?category=science">Science & Technology</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Customer Support -->
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul class="footer-links">
+                            <li><a href="/contact">Contact Support</a></li>
+                            <li><a href="/faq">FAQ</a></li>
+                            <li><a href="/shipping">Shipping Information</a></li>
+                            <li><a href="/returns">Returns & Exchanges</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact & Newsletter -->
+                    <div class="footer-section">
+                        <h4>Get In Touch</h4>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <div>123 Galle Road</div>
+                                <div>Colombo 03, Sri Lanka</div>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>+94 11 234 5678</div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>info@pahanaedu.lk</div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>Mon-Sat: 9AM-7PM</div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem;">
+                            <p style="margin-bottom: 1rem; color: var(--neutral-300); font-size: var(--text-sm);">
+                                Subscribe for updates & exclusive offers
+                            </p>
+                            <form class="newsletter-form">
+                                <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                                <button type="submit" class="newsletter-btn">Subscribe</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-end">
-                    <h6 class="footer-title">Visit Our Library</h6>
-                    <p class="small opacity-75">123 Galle Road<br>Colombo 03, Sri Lanka<br>Phone: +94 11 234 5678<br>Email: scholars@pahanaedu.lk</p>
+
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        &copy; 2025 Pahana Edu Bookshop. All rights reserved. Built with care for education.
+                    </div>
+                    <div class="footer-legal">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/cookies">Cookie Policy</a>
+                    </div>
                 </div>
-            </div>
-            <hr style="border-color: var(--antique-gold); opacity: 0.3;" class="my-4">
-            <div class="text-center">
-                <p class="small mb-0 opacity-75">
-                    &copy; 2025 Pahana Edu Bookshop. Fostering knowledge, nurturing minds.
-                </p>
             </div>
         </div>
     </footer>

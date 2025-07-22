@@ -5,233 +5,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${appName}">Pahana Edu Bookshop - Checkout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/css/modern-design-system.css" rel="stylesheet">
     <style>
-        /* Professional Academic Color Palette */
-        :root {
-            --oxford-blue: #002147;
-            --ivory-cream: #F8F5EC;
-            --dusty-rose: #C4A69F;
-            --muted-sage: #A8B5A2;
-            --antique-gold: #C6A664;
-            --charcoal-gray: #3E3E3E;
-            --maroon-red: #6C2C2F;
-            
-            /* Extended palette for gradients and states */
-            --oxford-blue-light: #1a3659;
-            --oxford-blue-dark: #001122;
-            --ivory-cream-dark: #F0ECE1;
-            --dusty-rose-light: #D4B6AF;
-            --sage-dark: #98A592;
-            --gold-light: #D6B674;
-        }
-        
-        /* Global Styles */
         body {
-            background-color: var(--ivory-cream);
-            color: var(--charcoal-gray);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            background: var(--bg-gradient-light);
         }
         
-        /* Navigation */
-        .navbar {
-            background: linear-gradient(135deg, var(--oxford-blue) 0%, var(--oxford-blue-light) 100%) !important;
-            border-bottom: 3px solid var(--antique-gold);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0, 33, 71, 0.15);
+        .checkout-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
         }
         
-        .navbar-brand {
-            color: var(--ivory-cream) !important;
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        .checkout-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
         }
         
-        .navbar-nav .nav-link {
-            color: var(--ivory-cream) !important;
-            font-weight: 500;
-            margin: 0 0.5rem;
-            padding: 0.75rem 1rem !important;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+        .checkout-header h1 {
+            color: var(--neutral-900);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-4);
         }
         
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            background: var(--antique-gold);
-            color: var(--oxford-blue) !important;
-            transform: translateY(-2px);
+        .form-section {
+            background: white;
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
         }
         
-        /* Checkout Form */
-        .checkout-card {
-            background: var(--ivory-cream);
-            border: 2px solid var(--ivory-cream-dark);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 33, 71, 0.1);
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+            color: var(--neutral-900);
+            font-weight: var(--font-semibold);
         }
         
-        .form-label {
-            color: var(--charcoal-gray);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .section-icon {
+            background: var(--primary-100);
+            color: var(--primary-600);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .form-control {
-            border: 2px solid var(--ivory-cream-dark);
-            border-radius: 8px;
-            background: var(--ivory-cream);
-            color: var(--charcoal-gray);
-            padding: 0.75rem;
+        .order-summary {
+            background: var(--neutral-50);
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
         }
         
-        .form-control:focus {
-            border-color: var(--antique-gold);
-            box-shadow: 0 0 0 0.2rem rgba(198, 166, 100, 0.25);
-            background: var(--ivory-cream);
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--neutral-200);
         }
         
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--oxford-blue), var(--oxford-blue-light));
-            border: none;
-            color: var(--ivory-cream);
-            padding: 0.75rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
+        .order-item:last-child {
+            border-bottom: none;
         }
         
-        .btn-primary-custom:hover {
-            background: linear-gradient(135deg, var(--oxford-blue-light), var(--muted-sage));
-            color: var(--ivory-cream);
-            transform: translateY(-2px);
+        .item-cover {
+            width: 60px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-bold);
+            font-size: var(--text-sm);
         }
         
-        .cart-item {
-            background: var(--ivory-cream);
-            border: 1px solid var(--ivory-cream-dark);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
+        .order-total {
+            background: var(--primary-50);
+            border: 2px solid var(--primary-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
         }
         
-        .total-section {
-            background: var(--oxford-blue);
-            color: var(--ivory-cream);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 1rem;
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+        }
+        
+        .total-row:last-child {
+            margin-bottom: 0;
+            font-weight: var(--font-bold);
+            font-size: var(--text-lg);
+            color: var(--primary-800);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <!-- Modern Navigation -->
+    <nav class="navbar-modern navbar-fixed">
         <div class="container">
-            <a class="navbar-brand" href="/" th:text="${appName}">
-                <i class="fas fa-book-open me-2"></i>Pahana Edu Bookshop
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shop"><i class="fas fa-store me-1"></i>Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/help"><i class="fas fa-question-circle me-1"></i>Help</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <!-- Show user links if authenticated -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-1"></i><span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu" style="border: 2px solid var(--antique-gold);">
-                            <li><a class="dropdown-item" href="/user/dashboard">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/my-orders">
-                                <i class="fas fa-shopping-bag me-2"></i>My Orders</a></li>
-                            <li><a class="dropdown-item" href="/profile">
-                                <i class="fas fa-user-cog me-2"></i>Profile</a></li>
-                            <li sec:authorize="hasRole('ADMIN')"><hr class="dropdown-divider"></li>
-                            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" href="/admin/dashboard">
-                                <i class="fas fa-cogs me-2"></i>Admin Panel</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </li>
-                    <!-- Show login link if not authenticated -->
-                    <li sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="/login"><i class="fas fa-user me-1"></i>Login</a>
-                    </li>
-                </ul>
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <div class="brand-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span class="brand-text">Pahana Edu</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/shop" class="nav-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Shop</span>
+                </a>
+                <a href="/help" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help</span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="/shop" class="nav-icon-btn" title="Continue Shopping">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="user-menu" sec:authorize="isAuthenticated()">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="/user/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="/my-orders"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                        <a href="/profile"><i class="fas fa-user-cog"></i> Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                <a href="/login" class="btn-modern btn-primary btn-sm" sec:authorize="!isAuthenticated()">
+                    <i class="fas fa-user"></i> Login
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Checkout Content -->
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="checkout-card">
-                    <h3 class="mb-4" style="color: var(--oxford-blue); font-weight: 700;">
-                        <i class="fas fa-shopping-cart me-2"></i>Checkout
-                    </h3>
-                    
-                    <form id="checkoutForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="fullName" class="form-label">Full Name *</label>
-                                <input type="text" class="form-control" id="fullName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">Phone Number *</label>
-                                <input type="tel" class="form-control" id="phone" required>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Delivery Address *</label>
-                            <textarea class="form-control" id="address" rows="3" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary-custom">
-                            <i class="fas fa-credit-card me-2"></i>Place Order
-                        </button>
-                    </form>
+    <div class="main-content">
+        <div class="container">
+            <div class="checkout-container">
+                <div class="checkout-header">
+                    <h1><i class="fas fa-shopping-cart me-3"></i>Secure Checkout</h1>
+                    <p class="text-muted">Complete your order safely and securely</p>
                 </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="checkout-card">
-                    <h5 class="mb-3" style="color: var(--oxford-blue); font-weight: 700;">
-                        <i class="fas fa-receipt me-2"></i>Order Summary
-                    </h5>
-                    
-                    <div id="cartItems">
-                        <!-- Cart items will be populated by JavaScript -->
+
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <!-- Shipping Information -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <div class="section-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <h3>Shipping Information</h3>
+                            </div>
+                            
+                            <form id="checkoutForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="phone" class="form-label">Phone Number *</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="address" class="form-label">Delivery Address *</label>
+                                        <textarea class="form-control" id="address" rows="3" required 
+                                                  placeholder="Enter your complete delivery address"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     
-                    <div class="total-section">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold">Total:</span>
-                            <span class="fw-bold fs-5" id="totalAmount">LKR 0.00</span>
+                    <div class="col-lg-4">
+                        <div class="order-summary">
+                            <h4 class="mb-4">Order Summary</h4>
+                            
+                            <div id="cartItems">
+                                <!-- Cart items will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="order-total">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotal">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="shipping">$5.00</span>
+                                </div>
+                                <hr>
+                                <div class="total-row">
+                                    <span>Total:</span>
+                                    <span id="totalAmount">$5.00</span>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn-modern btn-primary w-100 mt-4" onclick="handleCheckout(event)">
+                                <i class="fas fa-lock me-2"></i>
+                                Place Secure Order
+                            </button>
+                            
+                            <div class="mt-4 text-center">
+                                <div class="d-flex justify-content-center gap-3 mb-2">
+                                    <i class="fas fa-shield-alt text-success"></i>
+                                    <i class="fab fa-ssl text-success"></i>
+                                    <i class="fas fa-lock text-success"></i>
+                                </div>
+                                <small class="text-muted">Your payment information is secure and encrypted</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -239,47 +257,64 @@
         </div>
     </div>
 
-    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Checkout functionality -->
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         
         function displayCartItems() {
             const cartItemsContainer = document.getElementById('cartItems');
-            const totalAmountElement = document.getElementById('totalAmount');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('totalAmount');
             
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="text-center">Your cart is empty</p>';
-                totalAmountElement.textContent = 'LKR 0.00';
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-shopping-cart text-muted" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3">Your cart is empty</h5>
+                        <p class="text-muted">Add some books to your cart to proceed with checkout</p>
+                        <a href="/shop" class="btn-modern btn-primary">Continue Shopping</a>
+                    </div>
+                `;
                 return;
             }
             
-            let total = 0;
+            let subtotal = 0;
             let itemsHtml = '';
             
-            cart.forEach(item => {
+            cart.forEach((item, index) => {
                 const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+                subtotal += itemTotal;
+                
+                // Color variants for book covers
+                const colors = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444'];
+                const color = colors[index % colors.length];
                 
                 itemsHtml += `
-                    <div class="cart-item">
-                        <div class="d-flex justify-content-between">
+                    <div class="order-item">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="item-cover" style="background: ${color}; width: 50px; height: 60px;">
+                                <i class="fas fa-book"></i>
+                            </div>
                             <div>
                                 <h6 class="mb-1">${item.title}</h6>
-                                <small class="text-muted">Quantity: ${item.quantity}</small>
+                                <small class="text-muted">Qty: ${item.quantity}</small>
                             </div>
-                            <div class="text-end">
-                                <span class="fw-bold">LKR ${itemTotal.toFixed(2)}</span>
-                            </div>
+                        </div>
+                        <div class="text-end">
+                            <strong>$${itemTotal.toFixed(2)}</strong>
                         </div>
                     </div>
                 `;
             });
             
             cartItemsContainer.innerHTML = itemsHtml;
-            totalAmountElement.textContent = `LKR ${total.toFixed(2)}`;
+            
+            // Update totals
+            const shipping = 5.00;
+            const total = subtotal + shipping;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
         }
         
         function handleCheckout(event) {
@@ -290,19 +325,20 @@
                 return;
             }
             
-            const fullName = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
             
-            if (!fullName || !phone || !address) {
+            if (!firstName || !lastName || !email || !phone || !address) {
                 alert('Please fill in all required fields!');
                 return;
             }
             
             const orderData = {
                 customer: {
-                    fullName: fullName,
+                    fullName: `${firstName} ${lastName}`,
                     phone: phone,
                     email: email,
                     address: address
@@ -340,7 +376,6 @@
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             displayCartItems();
-            document.getElementById('checkoutForm').addEventListener('submit', handleCheckout);
         });
     </script>
 </body>
