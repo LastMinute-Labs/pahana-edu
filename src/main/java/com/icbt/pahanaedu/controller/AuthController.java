@@ -175,7 +175,7 @@ public class AuthController {
         if (user.getRole().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         } else {
-            return "redirect:/";
+            return "redirect:/user/dashboard";
         }
     }
 
