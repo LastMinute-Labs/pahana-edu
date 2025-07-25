@@ -21,6 +21,14 @@
     
     <!-- Page-specific styles -->
     <style>
+        /* Base Styles */
+        body {
+            background: var(--bg-soft);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+        }
+
         /* Shop-specific enhancements */
         .shop-hero {
             background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
@@ -41,17 +49,18 @@
         
         .filter-card {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--neutral-200);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
             position: sticky;
             top: 100px;
             transition: all 0.3s ease;
         }
         
         .filter-card:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-200);
         }
         
         .book-card-modern {
@@ -113,6 +122,7 @@
             line-height: 1.4;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -166,18 +176,20 @@
         }
         
         .search-section {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .results-header {
             background: var(--neutral-50);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-6);
+            margin-bottom: var(--space-6);
             border-left: 4px solid var(--primary-500);
         }
         
@@ -203,61 +215,111 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-modern sticky-top">
+    <!-- Modern Navigation -->
+    <nav class="navbar-modern fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">
-                <div class="d-flex align-items-center">
-                    <div class="brand-icon me-2">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <span th:text="${appName}">Pahana Edu</span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="navbar-brand-modern" href="/">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span th:text="${appName}">Pahana Edu Bookshop</span>
+                </a>
+
+                <div class="d-none d-lg-flex align-items-center gap-4">
+                    <nav class="d-flex gap-2">
+                        <a class="nav-link-modern" href="/">
+                            <i class="fas fa-home"></i>Home
+                        </a>
+                        <a class="nav-link-modern active" href="/shop">
+                            <i class="fas fa-store"></i>Shop
+                        </a>
+                        <a class="nav-link-modern" href="/help">
+                            <i class="fas fa-life-ring"></i>Help
+                        </a>
+                        <a sec:authorize="isAuthenticated()" class="nav-link-modern" href="/user/dashboard">
+                            <i class="fas fa-tachometer-alt"></i>Dashboard
+                        </a>
+                    </nav>
                 </div>
-            </a>
-            
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
+
+                <div class="d-flex align-items-center gap-3">
+                    <a class="position-relative" href="/cart">
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-shopping-cart me-1"></i>Cart
+                        </button>
+                        <span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cartCount">0</span>
+                    </a>
+
+                    <!-- Login Button for Non-Authenticated Users -->
+                    <div sec:authorize="!isAuthenticated()">
+                        <a href="/login" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    </div>
+
+                    <!-- User Dropdown for Authenticated Users -->
+                    <div sec:authorize="isAuthenticated()" class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>
+                            <span sec:authentication="name">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 modern-dropdown">
+                            <li>
+                                <a class="dropdown-item py-2" href="/user/dashboard">
+                                    <i class="fas fa-tachometer-alt me-2 text-primary"></i>Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2" href="/my-orders">
+                                    <i class="fas fa-shopping-bag me-2 text-primary"></i>My Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2" href="/profile">
+                                    <i class="fas fa-user-cog me-2 text-primary"></i>Profile
+                                </a>
+                            </li>
+                            <li sec:authorize="hasRole('ADMIN')">
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li sec:authorize="hasRole('ADMIN')">
+                                <a class="dropdown-item py-2" href="/admin/dashboard">
+                                    <i class="fas fa-shield-alt me-2 text-warning"></i>Admin Panel
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item py-2 text-danger" href="/logout">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">
-                            <i class="fas fa-home me-1"></i>Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/shop">
-                            <i class="fas fa-store me-1"></i>Shop
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/help">
-                            <i class="fas fa-question-circle me-1"></i>Help
-                        </a>
-                    </li>
-                </ul>
-                
-                <ul class="navbar-nav align-items-center">
-                    <!-- Cart -->
-                    <li class="nav-item me-2">
-                        <a class="nav-link cart-link position-relative" href="#" onclick="viewCart()">
-                            <i class="fas fa-shopping-cart me-1"></i>
-                            <span class="d-none d-md-inline">Cart</span>
-                            <span class="cart-badge position-absolute" id="cartCount">0</span>
-                        </a>
-                    </li>
-                    
-                    <!-- User Menu (Authenticated) -->
-                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle user-menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="d-flex align-items-center">
-                                <div class="user-avatar me-2">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <span class="d-none d-md-inline" sec:authentication="name">User</span>
-                            </div>
-                        </a>
+                <div class="d-flex flex-column gap-2 mt-3 d-lg-none">
+                    <a class="nav-link-modern" href="/">
+                        <i class="fas fa-home"></i>Home
+                    </a>
+                    <a class="nav-link-modern active" href="/shop">
+                        <i class="fas fa-store"></i>Shop
+                    </a>
+                    <a class="nav-link-modern" href="/help">
+                        <i class="fas fa-life-ring"></i>Help
+                    </a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link-modern" href="/user/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
                         <ul class="dropdown-menu dropdown-menu-end modern-dropdown">
                             <li><a class="dropdown-item" href="/user/dashboard">
                                 <i class="fas fa-tachometer-alt me-2"></i>Dashboard
