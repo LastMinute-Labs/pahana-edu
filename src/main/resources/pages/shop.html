@@ -885,7 +885,7 @@
             updateCartCount();
             
             // Add event listeners to all add-to-cart buttons
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
                 button.addEventListener('click', function() {
                     const itemId = this.dataset.itemId;
                     const itemPrice = parseFloat(this.dataset.itemPrice);

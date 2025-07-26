@@ -248,9 +248,6 @@ public class AdminController {
             existingItem.setPrice(updatedItem.getPrice());
             existingItem.setStock(updatedItem.getStock());
             existingItem.setCategory(updatedItem.getCategory());
-            existingItem.setIsbn(updatedItem.getIsbn());
-            existingItem.setPublisher(updatedItem.getPublisher());
-            existingItem.setPublishYear(updatedItem.getPublishYear());
 
             // Handle image upload
             if (imageFile != null && !imageFile.isEmpty()) {
@@ -316,19 +313,7 @@ public class AdminController {
                                @RequestParam("userRole") String userRole,
                                Model model) {
         
-        // Debug: Print received customer data
-        System.out.println("Received customer data:");
-        System.out.println("  First Name: " + customer.getFirstName());
-        System.out.println("  Last Name: " + customer.getLastName());
-        System.out.println("  Email: " + customer.getEmail());
-        System.out.println("  Phone Number: " + customer.getPhoneNumber());
-        System.out.println("  Address: " + customer.getAddress());
-        System.out.println("  City: " + customer.getCity());
-        System.out.println("  Postal Code: " + customer.getPostalCode());
-        System.out.println("  User Role: " + userRole);
-        
         if (result.hasErrors()) {
-            System.out.println("Validation errors: " + result.getAllErrors());
             return "redirect:/admin/customers?error=validation";
         }
 
@@ -341,65 +326,15 @@ public class AdminController {
                 String role = "ADMIN";
                 
                 User savedUser = userService.registerUser(username, phone, defaultPassword, role);
-                System.out.println("Admin user created successfully with ID: " + savedUser.getId());
                 return "redirect:/admin/customers?success=admin_created";
                 
             } else {
                 // Create customer record
-                // Set registration date before saving
                 customer.setRegistrationDate(LocalDateTime.now());
-                customer.setActive(true);
-                customer.setTotalSpent(0.0);
-                customer.setTotalOrders(0);
-                
-                Customer savedCustomer = customerService.createCustomer(customer);
-                System.out.println("Customer saved successfully with ID: " + savedCustomer.getId());
+                Customer savedCustomer = customerService.saveCustomer(customer);
                 return "redirect:/admin/customers?success=customer_created";
             }
-        } catch (RuntimeException e) {
-            System.out.println("Error creating customer/user: " + e.getMessage());
-            
-            // Handle specific error types
-            if (e.getMessage().contains("E11000") && e.getMessage().contains("phone: null")) {
-                // This is the null phone duplicate issue, try to clean up and retry
-                System.out.println("Detected null phone duplicate issue, attempting cleanup and retry...");
-                try {
-                    customerService.cleanupNullPhoneRecords();
-                    // Retry the customer creation
-                    if ("CUSTOMER".equals(userRole)) {
-                        customer.setRegistrationDate(LocalDateTime.now());
-                        customer.setActive(true);
-                        customer.setTotalSpent(0.0);
-                        customer.setTotalOrders(0);
-                        Customer savedCustomer = customerService.createCustomer(customer);
-                        System.out.println("Customer saved successfully after cleanup with ID: " + savedCustomer.getId());
-                        return "redirect:/admin/customers?success=customer_created";
-                    } else {
-                        // Retry admin user creation
-                        String username = customer.getFirstName() + " " + customer.getLastName();
-                        String phone = customer.getPhoneNumber();
-                        String defaultPassword = "admin123";
-                        String role = "ADMIN";
-                        User savedUser = userService.registerUser(username, phone, defaultPassword, role);
-                        System.out.println("Admin user created successfully after cleanup with ID: " + savedUser.getId());
-                        return "redirect:/admin/customers?success=admin_created";
-                    }
-                } catch (Exception retryException) {
-                    System.out.println("Retry failed: " + retryException.getMessage());
-                    return "redirect:/admin/customers?error=database_issue";
-                }
-            } else if (e.getMessage().contains("E11000") && e.getMessage().contains("phone") && !e.getMessage().contains("null")) {
-                return "redirect:/admin/customers?error=phone_exists";
-            } else if (e.getMessage().contains("E11000") && e.getMessage().contains("email")) {
-                return "redirect:/admin/customers?error=email_exists";
-            } else if (e.getMessage().contains("already exists")) {
-                return "redirect:/admin/customers?error=user_exists";
-            } else {
-                return "redirect:/admin/customers?error=create";
-            }
         } catch (Exception e) {
-            System.out.println("Unexpected error creating customer/user: " + e.getMessage());
-            e.printStackTrace();
             return "redirect:/admin/customers?error=create";
         }
     }
@@ -423,7 +358,7 @@ public class AdminController {
      */
     @PostMapping("/customers/{id}/update")
     public String updateCustomer(@PathVariable String id,
-                               @Valid @ModelAttribute Customer updatedCustomer,
+                               @Valid @ModelAttribute Customer customer,
                                BindingResult result,
                                Model model) {
         
@@ -432,7 +367,8 @@ public class AdminController {
         }
 
         try {
-            customerService.updateCustomer(id, updatedCustomer);
+            customer.setId(id);
+            customerService.saveCustomer(customer);
             return "redirect:/admin/customers?success=updated";
         } catch (Exception e) {
             return "redirect:/admin/customers?error=update";
@@ -479,5 +415,27 @@ public class AdminController {
 
         // Return relative URL
         return "/images/books/" + filename;
+    }
+
+    /**
+     * Admin Profile Page
+     */
+    @GetMapping("/profile")
+    public String adminProfile(Authentication authentication, Model model) {
+        String username = authentication.getName();
+        User user = userService.findByUsername(username).orElse(null);
+        
+        if (user == null) {
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("user", user);
+        model.addAttribute("appName", "Pahana Education");
+        
+        // Add admin-specific stats
+        Map<String, Object> adminStats = getDashboardStatistics();
+        model.addAttribute("adminStats", adminStats);
+        
+        return "profile"; // Reuse the same profile page but with admin context
     }
 }

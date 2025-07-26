@@ -113,6 +113,24 @@ public class HomeController {
     }
 
     /**
+     * Show shopping cart page
+     */
+    @GetMapping("/cart")
+    public String cart(Model model, Authentication authentication) {
+        model.addAttribute("appName", "Pahana Edu Bookshop - Shopping Cart");
+        
+        // Add authentication context for Thymeleaf security
+        if (authentication != null && authentication.isAuthenticated()) {
+            model.addAttribute("isAuthenticated", true);
+            model.addAttribute("username", authentication.getName());
+        } else {
+            model.addAttribute("isAuthenticated", false);
+        }
+        
+        return "cart";
+    }
+
+    /**
      * Show checkout page
      */
     @GetMapping("/checkout")

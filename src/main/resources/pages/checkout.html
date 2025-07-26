@@ -300,14 +300,14 @@
             }
             
             const orderData = {
-                customer: {
-                    fullName: `${firstName} ${lastName}`,
-                    phone: phone,
-                    email: email,
-                    address: address
-                },
+                fullName: `${firstName} ${lastName}`,
+                phone: phone,
+                email: email,
+                address: address,
                 items: cart.map(item => ({
-                    itemId: item.id,
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
                     quantity: item.quantity
                 }))
             };
@@ -325,7 +325,7 @@
                 if (data.success) {
                     alert(`Order placed successfully! Order ID: ${data.orderId}`);
                     localStorage.removeItem('cart');
-                    window.location.href = '/shop';
+                    window.location.href = '/shop?message=Order placed successfully';
                 } else {
                     alert(`Error: ${data.message}`);
                 }
