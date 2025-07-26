@@ -138,4 +138,34 @@ public class HomeController {
         model.addAttribute("appName", "Pahana Edu Bookshop - Checkout");
         return "checkout";
     }
+
+    /**
+     * Show user profile page
+     */
+    @GetMapping("/profile")
+    public String profile(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("appName", "Pahana Edu Bookshop - Profile");
+        model.addAttribute("username", authentication.getName());
+        
+        return "profile";
+    }
+
+    /**
+     * Show user orders page
+     */
+    @GetMapping("/my-orders")
+    public String myOrders(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("appName", "Pahana Edu Bookshop - My Orders");
+        model.addAttribute("username", authentication.getName());
+        
+        return "user/orders";
+    }
 }
