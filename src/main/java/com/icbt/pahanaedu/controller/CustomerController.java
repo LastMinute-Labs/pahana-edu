@@ -218,31 +218,6 @@ public class CustomerController {
     }
 
     /**
-     * User's order history
-     */
-    @GetMapping("/my-orders")
-    public String myOrders(Authentication authentication, Model model) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
-        String username = authentication.getName();
-        Optional<User> user = userService.findByUsername(username);
-        
-        if (user.isEmpty()) {
-            return "redirect:/login";
-        }
-
-        // For now, we'll try to match by username or need to implement user-customer association
-        // This is a simplified approach - you might want to add a userId field to Customer
-        List<Bill> orders = customerService.getOrdersByCustomerName(username);
-        
-        model.addAttribute("orders", orders);
-        model.addAttribute("user", user.get());
-        return "user/orders";
-    }
-
-    /**
      * API endpoint to check if phone number exists
      */
     @GetMapping("/api/check-phone")
