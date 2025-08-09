@@ -154,14 +154,7 @@
                 controls. Monitor sales, manage inventory, and oversee customer
                 relationships.
               </p>
-              <div class="d-flex gap-3">
-                <a href="/admin/orders" class="btn-modern btn-primary">
-                  <i class="fas fa-plus me-2"></i>New Order
-                </a>
-                <a href="/admin/items" class="btn-modern btn-secondary">
-                  <i class="fas fa-book me-2"></i>Manage Books
-                </a>
-              </div>
+              <!-- no -->
             </div>
           </div>
           <div class="col-lg-4 text-end">
@@ -196,100 +189,6 @@
     <!-- Main Content -->
     <section class="py-5">
       <div class="container">
-        <!-- Statistics Cards -->
-        <div class="row g-4 mb-5">
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-card-modern">
-              <div
-                class="stats-icon-modern"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    var(--primary-600),
-                    var(--primary-500)
-                  );
-                "
-              >
-                <i class="fas fa-users"></i>
-              </div>
-              <div class="stats-content">
-                <div class="stats-number" th:text="${totalUsers ?: 0}">0</div>
-                <div class="stats-label">Total Customers</div>
-                <div class="stats-change text-success">
-                  <i class="fas fa-arrow-up me-1"></i>+12% this month
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-card-modern">
-              <div
-                class="stats-icon-modern"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    var(--accent-emerald),
-                    #047857
-                  );
-                "
-              >
-                <i class="fas fa-shopping-cart"></i>
-              </div>
-              <div class="stats-content">
-                <div class="stats-number" th:text="${totalOrders ?: 0}">0</div>
-                <div class="stats-label">Total Orders</div>
-                <div class="stats-change text-success">
-                  <i class="fas fa-arrow-up me-1"></i>+8% this week
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-card-modern">
-              <div
-                class="stats-icon-modern"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    var(--accent-amber),
-                    #d97706
-                  );
-                "
-              >
-                <i class="fas fa-book"></i>
-              </div>
-              <div class="stats-content">
-                <div class="stats-number" th:text="${totalBooks ?: 0}">0</div>
-                <div class="stats-label">Books in Stock</div>
-                <div class="stats-change text-warning">
-                  <i class="fas fa-minus me-1"></i>Check inventory
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-card-modern">
-              <div
-                class="stats-icon-modern"
-                style="
-                  background: linear-gradient(135deg, var(--info), #1d4ed8);
-                "
-              >
-                <i class="fas fa-dollar-sign"></i>
-              </div>
-              <div class="stats-content">
-                <div class="stats-number">
-                  $<span th:text="${totalRevenue ?: '0.00'}">0.00</span>
-                </div>
-                <div class="stats-label">Total Revenue</div>
-                <div class="stats-change text-success">
-                  <i class="fas fa-arrow-up me-1"></i>+15% this month
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Quick Actions & Recent Activity -->
         <div class="row g-4">
           <div class="col-lg-8">
@@ -353,7 +252,7 @@
 
           <div class="col-lg-4">
             <!-- Quick Actions Card -->
-            <div class="card-modern mb-4">
+            <!-- <div class="card-modern mb-4">
               <div class="card-header">
                 <h5 class="mb-0">
                   <i class="fas fa-bolt me-2 text-warning"></i>Quick Actions
@@ -387,7 +286,7 @@
                   </a>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- System Status Card -->
             <div class="card-modern">
@@ -426,28 +325,16 @@
       </div>
     </section>
 
-    <!-- Modern Footer -->
+    <!-- Simple Footer -->
     <footer
-      class="py-4"
-      style="
-        background: var(--bg-secondary);
-        border-top: 1px solid var(--neutral-200);
-      "
+      class="text-center py-4 mt-5"
+      style="background-color: #f8f9fa; border-top: 1px solid #dee2e6"
     >
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <p class="mb-0 text-secondary">
-              <i class="fas fa-shield-alt me-2 text-primary"></i>
-              Admin Portal - Pahana Edu Bookshop Management System
-            </p>
-          </div>
-          <div class="col-md-6 text-end">
-            <p class="mb-0 text-tertiary">
-              &copy; 2025 Pahana Edu. Administrative access only.
-            </p>
-          </div>
-        </div>
+        <p class="mb-0 text-muted">
+          © 2025 Pahana Edu Bookshop. All rights reserved. Built with care for
+          education.
+        </p>
       </div>
     </footer>
 

@@ -59,17 +59,11 @@ public class ItemService {
 
     // Save item
     public Item saveItem(Item item) {
-        if (item.getStock() != null) {
-            item.setAvailable(item.getStock() > 0);
-        }
         return itemRepository.save(item);
     }
 
     // Update item
     public Item updateItem(Item item) {
-        if (item.getStock() != null) {
-            item.setAvailable(item.getStock() > 0);
-        }
         return itemRepository.save(item);
     }
 
@@ -88,57 +82,100 @@ public class ItemService {
         return itemRepository.findDistinctCategories();
     }
 
-    // Update stock when item is purchased
-    public boolean updateStock(String itemId, int quantity) {
-        Optional<Item> optionalItem = itemRepository.findById(itemId);
-        if (optionalItem.isPresent()) {
-            Item item = optionalItem.get();
-            if (item.getStock() >= quantity) {
-                item.setStock(item.getStock() - quantity);
-                item.setAvailable(item.getStock() > 0);
-                itemRepository.save(item);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Get low stock items (stock <= 5)
-    public List<Item> getLowStockItems() {
-        return itemRepository.findByStockLessThanEqualAndAvailableTrue(5);
-    }
-
     // Initialize sample data if database is empty
     public void initializeSampleData() {
         if (itemRepository.count() == 0) {
             List<Item> sampleItems = List.of(
-                    new Item("Java Programming", "James Gosling", "Complete guide to Java programming language",
-                            2500.00, 25, "Programming"),
-                    new Item("Spring Boot in Action", "Craig Walls",
-                            "Learn Spring Boot framework with practical examples", 3200.00, 15, "Programming"),
-                    new Item("Data Structures and Algorithms", "Robert Sedgewick",
-                            "Comprehensive guide to data structures and algorithms", 2800.00, 20, "Computer Science"),
-                    new Item("MongoDB: The Definitive Guide", "Shannon Bradshaw", "Master MongoDB database development",
-                            2900.00, 12, "Database"),
-                    new Item("Clean Code", "Robert C. Martin", "A handbook of agile software craftsmanship", 2400.00,
-                            18, "Software Engineering"),
-                    new Item("The Pragmatic Programmer", "David Thomas", "Your journey to mastery", 2600.00, 22,
-                            "Software Engineering"),
-                    new Item("Introduction to Mathematics", "John Smith", "Fundamental concepts in mathematics",
-                            1800.00, 30, "Mathematics"),
-                    new Item("Physics for Engineers", "Mary Johnson",
-                            "Applied physics concepts for engineering students", 3500.00, 8, "Physics"));
+                    new Item("The Great Gatsby", "F. Scott Fitzgerald", "A classic American novel about the Jazz Age",
+                            1500.00, "novels"),
+                    new Item("To Kill a Mockingbird", "Harper Lee",
+                            "A powerful story of racial injustice and childhood innocence", 1600.00, "novels"),
+                    new Item("World War II: A Complete History", "Martin Gilbert",
+                            "Comprehensive account of the Second World War", 2800.00, "history"),
+                    new Item("The Story of Civilization", "Will Durant", "Epic historical narrative of human progress",
+                            3200.00, "history"),
+                    new Item("Dune", "Frank Herbert", "Epic science fiction saga set in the distant future", 2400.00,
+                            "scifi"),
+                    new Item("Foundation", "Isaac Asimov", "Classic science fiction about the fall of a galactic empire", 2200.00,
+                            "scifi"),
+                    new Item("Mathematics for Primary Schools", "Jane Wilson", "Fun and engaging math concepts for young learners",
+                            1200.00, "educational"),
+                    new Item("The Very Hungry Caterpillar", "Eric Carle",
+                            "Beloved children's story about growth and transformation", 800.00, "children"));
 
             // Set additional properties for sample items
             for (int i = 0; i < sampleItems.size(); i++) {
                 Item item = sampleItems.get(i);
                 item.setIsbn("978-0-123456-" + String.format("%02d", i + 1) + "-0");
-                item.setPublisher("Academic Press");
+                item.setPublisher("Pahana Publishers");
                 item.setPublishYear(2023 - (i % 3)); // Years 2021-2023
                 item.setImageUrl("/images/books/book" + (i + 1) + ".jpg");
             }
 
             itemRepository.saveAll(sampleItems);
+        }
+        
+        // Update existing items with old categories to new categories
+        updateExistingCategories();
+    }
+
+    // Update existing items to use new category structure
+    public void updateExistingCategories() {
+        List<Item> allItems = itemRepository.findAll();
+        boolean hasChanges = false;
+        
+        for (Item item : allItems) {
+            String oldCategory = item.getCategory();
+            String newCategory = null;
+            
+            // Map old categories to new ones
+            switch (oldCategory.toLowerCase()) {
+                case "fiction":
+                case "programming":
+                case "software engineering":
+                    newCategory = "novels";
+                    break;
+                case "non-fiction":
+                case "mathematics":
+                case "physics":
+                case "computer science":
+                case "database":
+                    newCategory = "educational";
+                    break;
+                case "textbook":
+                case "textbooks":
+                case "reference":
+                    newCategory = "educational";
+                    break;
+                case "science fiction":
+                case "sci-fi":
+                    newCategory = "scifi";
+                    break;
+                case "children":
+                case "kids":
+                    newCategory = "children";
+                    break;
+                default:
+                    // If it's already one of the new categories, keep it
+                    if (oldCategory.equals("novels") || oldCategory.equals("history") || 
+                        oldCategory.equals("scifi") || oldCategory.equals("educational") || 
+                        oldCategory.equals("children")) {
+                        newCategory = oldCategory;
+                    } else {
+                        // Default unmapped categories to educational
+                        newCategory = "educational";
+                    }
+                    break;
+            }
+            
+            if (!oldCategory.equals(newCategory)) {
+                item.setCategory(newCategory);
+                hasChanges = true;
+            }
+        }
+        
+        if (hasChanges) {
+            itemRepository.saveAll(allItems);
         }
     }
 }

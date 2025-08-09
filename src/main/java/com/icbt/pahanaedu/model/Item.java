@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 
 @Document(collection = "items")
 public class Item {
@@ -26,10 +25,6 @@ public class Item {
     @Positive(message = "Price must be positive")
     private Double price;
     
-    @NotNull(message = "Stock quantity is required")
-    @PositiveOrZero(message = "Stock must be zero or positive")
-    private Integer stock;
-    
     @NotBlank(message = "Category is required")
     private String category;
     
@@ -48,14 +43,13 @@ public class Item {
     public Item() {}
 
     // Constructor with essential fields
-    public Item(String title, String author, String description, Double price, Integer stock, String category) {
+    public Item(String title, String author, String description, Double price, String category) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.price = price;
-        this.stock = stock;
         this.category = category;
-        this.available = stock > 0;
+        this.available = true;
     }
 
     // Getters and Setters
@@ -97,15 +91,6 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-        this.available = stock > 0;
     }
 
     public String getCategory() {
@@ -161,14 +146,6 @@ public class Item {
         return String.format("Rs. %.2f", price);
     }
 
-    public boolean isInStock() {
-        return stock > 0;
-    }
-
-    public boolean isLowStock() {
-        return stock > 0 && stock <= 5;
-    }
-
     @Override
     public String toString() {
         return "Item{" +
@@ -176,7 +153,6 @@ public class Item {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", price=" + price +
-                ", stock=" + stock +
                 ", category='" + category + '\'' +
                 ", available=" + available +
                 '}';

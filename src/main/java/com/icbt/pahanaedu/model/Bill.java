@@ -75,7 +75,6 @@ public class Bill {
         private String itemAuthor;
         private String itemCategory;
         private Double itemPrice;
-        private Integer quantity;
         private Double lineTotal;
 
         // Default constructor
@@ -83,15 +82,14 @@ public class Bill {
         }
 
         // Constructor
-        public OrderItem(Item item, Integer quantity) {
+        public OrderItem(Item item) {
             this.item = item;
             this.itemId = item.getId();
             this.itemTitle = item.getTitle();
             this.itemAuthor = item.getAuthor();
             this.itemCategory = item.getCategory();
             this.itemPrice = item.getPrice();
-            this.quantity = quantity;
-            this.lineTotal = item.getPrice() * quantity;
+            this.lineTotal = item.getPrice();
         }
 
         // Getters and Setters
@@ -141,15 +139,6 @@ public class Bill {
 
         public void setItemPrice(Double itemPrice) {
             this.itemPrice = itemPrice;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
-            this.lineTotal = this.itemPrice * quantity;
         }
 
         public Double getLineTotal() {
@@ -419,18 +408,18 @@ public class Bill {
                 (this.discountAmount != null ? this.discountAmount : 0.0);
     }
 
-    public void addItem(Item item, Integer quantity) {
+    public void addItem(Item item) {
         if (this.items == null) {
             this.items = new java.util.ArrayList<>();
         }
-        this.items.add(new OrderItem(item, quantity));
+        this.items.add(new OrderItem(item));
         calculateTotals();
     }
 
     public Integer getTotalItems() {
         if (items == null)
             return 0;
-        return items.stream().mapToInt(OrderItem::getQuantity).sum();
+        return items.size();
     }
 
     public void markAsPaid(String paymentMethod, String transactionId) {

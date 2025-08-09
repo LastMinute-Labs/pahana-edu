@@ -157,8 +157,71 @@
                         </div>
                         
                         <div class="card-body">
+                            <!-- Orders List -->
+                            <div th:if="${orders != null and !orders.isEmpty()}">
+                                <div th:each="order : ${orders}" class="order-item mb-4 p-4 border rounded">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="mb-2">
+                                                <i class="fas fa-receipt me-2 text-primary"></i>
+                                                Order #<span th:text="${#strings.substring(order.id, 0, 8)}">12345678</span>
+                                            </h5>
+                                            <p class="mb-1">
+                                                <strong>Order Date:</strong> 
+                                                <span th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy, HH:mm')}">01 Jan 2024, 10:30</span>
+                                            </p>
+                                            <p class="mb-1">
+                                                <strong>Customer:</strong> 
+                                                <span th:text="${order.customerName}">Customer Name</span>
+                                            </p>
+                                            <p class="mb-1">
+                                                <strong>Contact:</strong> 
+                                                <span th:text="${order.customerPhone}">+94 123 456 789</span>
+                                            </p>
+                                            <p class="mb-1" th:if="${order.deliveryAddress != null and !#strings.isEmpty(order.deliveryAddress)}">
+                                                <strong>Delivery Address:</strong> 
+                                                <span th:text="${order.deliveryAddress}">Delivery Address</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 text-md-end">
+                                            <h4 class="mb-3 text-primary">
+                                                Rs <span th:text="${#numbers.formatDecimal(order.totalAmount, 1, 2)}">0.00</span>
+                                            </h4>
+                                            <span class="badge bg-success mb-2">Order Completed</span>
+                                            <div>
+                                                <a th:href="@{'/order/pdf/' + ${order.id}}" 
+                                                   class="btn btn-outline-primary btn-sm" 
+                                                   target="_blank">
+                                                    <i class="fas fa-download me-1"></i>
+                                                    Download Receipt
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Order Items -->
+                                    <div class="mt-3">
+                                        <h6 class="mb-2">
+                                            <i class="fas fa-list me-2"></i>
+                                            Items Ordered:
+                                        </h6>
+                                        <div class="order-items">
+                                            <div th:each="item : ${order.items}" class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                                <div>
+                                                    <strong th:text="${item.itemTitle}">Book Title</strong>
+                                                    <small class="text-muted d-block" th:text="${item.itemAuthor}">Author Name</small>
+                                                </div>
+                                                <div class="text-end">
+                                                    <span class="fw-bold">Rs <span th:text="${#numbers.formatDecimal(item.itemPrice, 1, 2)}">0.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <!-- No Orders State -->
-                            <div class="text-center py-5">
+                            <div th:if="${orders == null or orders.isEmpty()}" class="text-center py-5">
                                 <div class="empty-state">
                                     <i class="fas fa-shopping-bag text-muted mb-3" style="font-size: 4rem;"></i>
                                     <h4 class="text-muted mb-3">No orders yet</h4>
@@ -179,42 +242,48 @@
     </section>
 
     <!-- Quick Actions Section -->
-    <section class="features-section" style="padding-top: 0;">
+    <section class="py-5">
         <div class="container">
             <div class="text-center mb-4">
                 <h3>Quick Actions</h3>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-shopping-cart"></i>
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas fa-shopping-cart fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">View Cart</h5>
+                            <p class="card-text">Check items currently in your shopping cart.</p>
+                            <a href="/cart" class="btn btn-outline-primary btn-sm">View Cart</a>
                         </div>
-                        <h5 class="feature-title">View Cart</h5>
-                        <p class="feature-description">Check items currently in your shopping cart.</p>
-                        <a href="/cart" class="btn btn-outline-primary btn-sm">View Cart</a>
                     </div>
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-book"></i>
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas fa-book fa-3x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Browse Books</h5>
+                            <p class="card-text">Explore our collection of academic and professional books.</p>
+                            <a href="/shop" class="btn btn-outline-success btn-sm">Browse Books</a>
                         </div>
-                        <h5 class="feature-title">Browse Books</h5>
-                        <p class="feature-description">Explore our collection of academic and professional books.</p>
-                        <a href="/shop" class="btn btn-outline-primary btn-sm">Browse Books</a>
                     </div>
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-cog"></i>
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas fa-user-cog fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">My Profile</h5>
+                            <p class="card-text">Manage your account settings and personal information.</p>
+                            <a href="/profile" class="btn btn-outline-info btn-sm">View Profile</a>
                         </div>
-                        <h5 class="feature-title">My Profile</h5>
-                        <p class="feature-description">Manage your account settings and personal information.</p>
-                        <a href="/profile" class="btn btn-outline-primary btn-sm">View Profile</a>
                     </div>
                 </div>
             </div>
@@ -300,7 +369,7 @@
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function updateCartCount() {
-            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            const totalItems = cart.length;
             const cartBadge = document.getElementById('cartCount');
             if (cartBadge) {
                 cartBadge.textContent = totalItems;

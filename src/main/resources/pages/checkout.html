@@ -430,24 +430,24 @@
                 <div class="order-total">
                   <div class="total-row">
                     <span>Subtotal:</span>
-                    <span id="subtotal">$0.00</span>
+                    <span id="subtotal">Rs. 0.00</span>
                   </div>
                   <div class="total-row" id="discountRow" style="display: none">
                     <span>Discount:</span>
-                    <span id="discount" class="text-success">-$0.00</span>
+                    <span id="discount" class="text-success">-Rs. 0.00</span>
                   </div>
                   <div class="total-row">
                     <span>Shipping:</span>
-                    <span id="shipping">$5.00</span>
+                    <span id="shipping">Rs. 5.00</span>
                   </div>
                   <div class="total-row">
                     <span>Tax:</span>
-                    <span id="tax">$0.00</span>
+                    <span id="tax">Rs. 0.00</span>
                   </div>
                   <hr />
                   <div class="total-row total-final">
                     <span>Total:</span>
-                    <span id="totalAmount">$5.00</span>
+                    <span id="totalAmount">Rs. 5.00</span>
                   </div>
                 </div>
 
@@ -520,8 +520,7 @@
         let itemsHtml = "";
 
         cart.forEach((item, index) => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
+          subtotal += item.price;
 
           // Color variants for book covers
           const colors = [
@@ -544,17 +543,14 @@
                             <div class="item-details">
                                 <h6>${item.title}</h6>
                                 <div class="item-meta">
-                                    <span class="item-price">$${item.price.toFixed(
+                                    <span class="item-price">Rs. ${item.price.toFixed(
                                       2
                                     )}</span>
-                                    <span class="item-qty">Qty: ${
-                                      item.quantity
-                                    }</span>
                                 </div>
                             </div>
                         </div>
                         <div class="item-total">
-                            <strong>$${itemTotal.toFixed(2)}</strong>
+                            <strong>Rs. ${item.price.toFixed(2)}</strong>
                         </div>
                     </div>
                 `;
@@ -577,15 +573,12 @@
         const total = subtotal - discount + shipping + tax;
 
         // Update display
-        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-        taxElement.textContent = `$${tax.toFixed(2)}`;
+        subtotalElement.textContent = `Rs. ${subtotal.toFixed(2)}`;
+        taxElement.textContent = `Rs. ${tax.toFixed(2)}`;
         document.getElementById("shipping").textContent =
-          shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`;
-        totalElement.textContent = `$${total.toFixed(2)}`;
-        itemCountElement.textContent = cart.reduce(
-          (sum, item) => sum + item.quantity,
-          0
-        );
+          shipping === 0 ? "FREE" : `Rs. ${shipping.toFixed(2)}`;
+        totalElement.textContent = `Rs. ${total.toFixed(2)}`;
+        itemCountElement.textContent = cart.length;
 
         // Show/hide discount row
         const discountRow = document.getElementById("discountRow");
@@ -782,8 +775,7 @@
           items: cart.map((item) => ({
             id: item.id,
             title: item.title,
-            price: item.price,
-            quantity: item.quantity,
+            price: item.price
           })),
         };
 

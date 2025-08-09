@@ -195,13 +195,12 @@ public class CustomerController {
             double totalAmount = 0.0;
             for (Map<String, Object> cartItem : cartItems) {
                 String itemId = (String) cartItem.get("itemId");
-                Integer quantity = (Integer) cartItem.get("quantity");
                 
                 Optional<Item> item = itemService.getItemById(itemId);
                 if (item.isPresent()) {
                     Item currentItem = item.get();
-                    bill.addItem(currentItem, quantity);
-                    totalAmount += currentItem.getPrice() * quantity;
+                    bill.addItem(currentItem);
+                    totalAmount += currentItem.getPrice();
                 }
             }
 
@@ -292,15 +291,13 @@ public class CustomerController {
                 String title = (String) cartItem.get("title");
                 String author = (String) cartItem.get("author");
                 Double price = ((Number) cartItem.get("price")).doubleValue();
-                Integer quantity = ((Number) cartItem.get("quantity")).intValue();
                 
                 Bill.OrderItem billItem = new Bill.OrderItem();
                 billItem.setItemId(itemId);
                 billItem.setItemTitle(title);
                 billItem.setItemAuthor(author);
                 billItem.setItemPrice(price);
-                billItem.setQuantity(quantity);
-                billItem.setLineTotal(price * quantity);
+                billItem.setLineTotal(price);
                 
                 billItems.add(billItem);
                 totalAmount += billItem.getLineTotal();

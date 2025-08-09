@@ -1,7 +1,6 @@
 package com.icbt.pahanaedu.service;
 
 import com.icbt.pahanaedu.model.Bill;
-import com.icbt.pahanaedu.model.Customer;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -113,30 +112,23 @@ public class PdfBillService {
             document.add(new Paragraph("\n"));
             
             // Items Table
-            Table itemsTable = new Table(UnitValue.createPercentArray(new float[]{10, 40, 15, 10, 15, 10}))
+            Table itemsTable = new Table(UnitValue.createPercentArray(new float[]{10, 50, 20, 20}))
                 .setWidth(UnitValue.createPercentValue(100));
             
             // Table headers
             itemsTable.addHeaderCell(createHeaderCell("No.", headerFont));
             itemsTable.addHeaderCell(createHeaderCell("Item", headerFont));
             itemsTable.addHeaderCell(createHeaderCell("Author", headerFont));
-            itemsTable.addHeaderCell(createHeaderCell("Qty", headerFont));
-            itemsTable.addHeaderCell(createHeaderCell("Unit Price", headerFont));
-            itemsTable.addHeaderCell(createHeaderCell("Total", headerFont));
+            itemsTable.addHeaderCell(createHeaderCell("Price", headerFont));
             
             // Table rows
             int itemNumber = 1;
-            double subtotal = 0.0;
             
             for (Bill.OrderItem item : bill.getItems()) {
                 itemsTable.addCell(createDataCell(String.valueOf(itemNumber++), normalFont));
                 itemsTable.addCell(createDataCell(item.getItemTitle(), normalFont));
                 itemsTable.addCell(createDataCell(item.getItemAuthor() != null ? item.getItemAuthor() : "-", normalFont));
-                itemsTable.addCell(createDataCell(String.valueOf(item.getQuantity()), normalFont));
                 itemsTable.addCell(createDataCell("Rs. " + CURRENCY_FORMAT.format(item.getItemPrice()), normalFont));
-                itemsTable.addCell(createDataCell("Rs. " + CURRENCY_FORMAT.format(item.getLineTotal()), normalFont));
-                
-                subtotal += item.getLineTotal();
             }
             
             document.add(itemsTable);
