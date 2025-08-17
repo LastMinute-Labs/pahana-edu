@@ -1,7 +1,9 @@
 package com.icbt.pahanaedu.controller;
 
+import com.icbt.pahanaedu.model.Bill;
 import com.icbt.pahanaedu.model.Item;
 import com.icbt.pahanaedu.model.User;
+import com.icbt.pahanaedu.service.CustomerService;
 import com.icbt.pahanaedu.service.ItemService;
 import com.icbt.pahanaedu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class HomeController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping("/")
     public String home(Model model, Authentication authentication) {
@@ -221,8 +226,14 @@ public class HomeController {
             return "redirect:/login";
         }
         
+        String customerName = authentication.getName();
+        
+        // Get user's orders
+        List<Bill> orders = customerService.getOrdersByCustomerName(customerName);
+        
         model.addAttribute("appName", "Pahana Edu Bookshop - My Orders");
-        model.addAttribute("username", authentication.getName());
+        model.addAttribute("username", customerName);
+        model.addAttribute("orders", orders);
         
         return "user/orders";
     }

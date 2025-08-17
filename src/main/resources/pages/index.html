@@ -566,153 +566,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="modern-footer">
+    <!-- Simple Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
       <div class="container">
-        <div class="footer-content">
-          <div class="footer-main">
-            <!-- Brand Section -->
-            <div class="footer-brand">
-              <div class="footer-logo">
-                <div class="logo-icon">
-                  <i class="fas fa-graduation-cap"></i>
-                </div>
-                <span class="logo-text">Pahana Edu</span>
-              </div>
-              <p class="footer-description">
-                Empowering minds through quality education and exceptional
-                books. Your trusted partner in academic excellence and lifelong
-                learning.
-              </p>
-              <div class="footer-social">
-                <a href="#" class="social-link" title="Facebook">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="social-link" title="Twitter">
-                  <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-link" title="Instagram">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-link" title="LinkedIn">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" class="social-link" title="YouTube">
-                  <i class="fab fa-youtube"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="footer-section">
-              <h4>Quick Links</h4>
-              <ul class="footer-links">
-                <li>
-                  <a href="/"><i class="fas fa-home"></i> Home</a>
-                </li>
-                <li>
-                  <a href="/shop"><i class="fas fa-shopping-cart"></i> Shop</a>
-                </li>
-                <li>
-                  <a href="/help"
-                    ><i class="fas fa-question-circle"></i> Help Center</a
-                  >
-                </li>
-                <li>
-                  <a href="/about"
-                    ><i class="fas fa-info-circle"></i> About Us</a
-                  >
-                </li>
-              </ul>
-            </div>
-
-            <!-- Categories -->
-            <div class="footer-section">
-              <h4>Categories</h4>
-              <ul class="footer-links">
-                <li>
-                  <a href="/shop?category=textbooks">Academic Textbooks</a>
-                </li>
-                <li><a href="/shop?category=reference">Reference Books</a></li>
-                <li>
-                  <a href="/shop?category=fiction">Fiction & Literature</a>
-                </li>
-                <li>
-                  <a href="/shop?category=science">Science & Technology</a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Customer Support -->
-            <div class="footer-section">
-              <h4>Support</h4>
-              <ul class="footer-links">
-                <li><a href="/contact">Contact Support</a></li>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/shipping">Shipping Information</a></li>
-                <li><a href="/returns">Returns & Exchanges</a></li>
-              </ul>
-            </div>
-
-            <!-- Contact & Newsletter -->
-            <div class="footer-section">
-              <h4>Get In Touch</h4>
-              <div class="footer-contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <div>
-                  <div>123 Galle Road</div>
-                  <div>Colombo 03, Sri Lanka</div>
-                </div>
-              </div>
-              <div class="footer-contact-item">
-                <i class="fas fa-phone"></i>
-                <div>+94 11 234 5678</div>
-              </div>
-              <div class="footer-contact-item">
-                <i class="fas fa-envelope"></i>
-                <div>info@pahanaedu.lk</div>
-              </div>
-              <div class="footer-contact-item">
-                <i class="fas fa-clock"></i>
-                <div>Mon-Sat: 9AM-7PM</div>
-              </div>
-
-              <div style="margin-top: 2rem">
-                <p
-                  style="
-                    margin-bottom: 1rem;
-                    color: var(--neutral-300);
-                    font-size: var(--text-sm);
-                  "
-                >
-                  Subscribe for updates & exclusive offers
-                </p>
-                <form class="newsletter-form">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    class="newsletter-input"
-                    required
-                  />
-                  <button type="submit" class="newsletter-btn">
-                    Subscribe
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-bottom">
-            <div class="footer-copyright">
-              &copy; 2025 Pahana Edu Bookshop. All rights reserved. Built with
-              care for education.
-            </div>
-            <div class="footer-legal">
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
-              <a href="/cookies">Cookie Policy</a>
-            </div>
-          </div>
-        </div>
+        <p class="mb-0 text-muted">© 2025 Pahana Edu Bookshop. All rights reserved. Built with care for education.</p>
       </div>
     </footer>
 
@@ -724,29 +581,26 @@
       function addToCart(itemId, price, title) {
         const existingItem = cart.find((item) => item.id === itemId);
 
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
+        if (!existingItem) {
           cart.push({
             id: itemId,
             title: title,
-            price: price,
-            quantity: 1,
+            price: price
           });
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartCount();
+
+          // Show success message
+          showAlert(`"${title}" added to cart!`, "success");
+        } else {
+          // Show message if item already in cart
+          showAlert(`"${title}" is already in your cart!`, "info");
         }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-
-        // Show success message
-        showAlert(`"${title}" added to cart!`, "success");
       }
 
       function updateCartCount() {
-        const totalItems = cart.reduce(
-          (total, item) => total + item.quantity,
-          0
-        );
+        const totalItems = cart.length;
         const cartBadge = document.getElementById("cartCount");
         if (cartBadge) {
           cartBadge.textContent = totalItems;

@@ -501,11 +501,11 @@
                                 <div class="row g-2 mb-3">
                                     <div class="col-6">
                                         <input type="number" class="form-control form-control-sm" name="minPrice" 
-                                               th:value="${currentMinPrice}" placeholder="Min LKR" min="0">
+                                               th:value="${currentMinPrice}" placeholder="Min Rs." min="0">
                                     </div>
                                     <div class="col-6">
                                         <input type="number" class="form-control form-control-sm" name="maxPrice" 
-                                               th:value="${currentMaxPrice}" placeholder="Max LKR" min="0">
+                                               th:value="${currentMaxPrice}" placeholder="Max Rs." min="0">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-sm w-100">
@@ -519,13 +519,13 @@
                             <h6 class="fw-semibold text-neutral-700 mb-3">Quick Filters</h6>
                             <div class="d-grid gap-2">
                                 <a href="/shop?minPrice=0&maxPrice=2000" class="btn btn-sm btn-outline-neutral text-start">
-                                    <i class="fas fa-tag me-2 text-success"></i>Under LKR 2,000
+                                    <i class="fas fa-tag me-2 text-success"></i>Under Rs. 2,000
                                 </a>
                                 <a href="/shop?minPrice=2000&maxPrice=3500" class="btn btn-sm btn-outline-neutral text-start">
-                                    <i class="fas fa-tag me-2 text-warning"></i>LKR 2,000 - 3,500
+                                    <i class="fas fa-tag me-2 text-warning"></i>Rs. 2,000 - 3,500
                                 </a>
                                 <a href="/shop?minPrice=3500" class="btn btn-sm btn-outline-neutral text-start">
-                                    <i class="fas fa-tag me-2 text-danger"></i>Above LKR 3,500
+                                    <i class="fas fa-tag me-2 text-danger"></i>Above Rs. 3,500
                                 </a>
                             </div>
                         </div>
@@ -619,14 +619,11 @@
                                         <span th:if="${item.isbn}" class="meta-badge me-1">
                                             <i class="fas fa-barcode me-1"></i><span th:text="${item.isbn}">ISBN</span>
                                         </span>
-                                        <span class="meta-badge">
-                                            <i class="fas fa-boxes me-1"></i><span th:text="${item.stock} + ' left'">Stock</span>
-                                        </span>
                                     </div>
                                     
                                     <!-- Price -->
                                     <div class="book-price mb-3">
-                                        LKR <span th:text="${#numbers.formatDecimal(item.price, 1, 2)}">0.00</span>
+                                        Rs. <span th:text="${#numbers.formatDecimal(item.price, 1, 2)}">0.00</span>
                                     </div>
                                     
                                     <!-- Action Buttons -->
@@ -698,146 +695,10 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-primary-900 to-primary-800 text-white mt-5">
-        <div class="container py-5">
-            <div class="row g-4">
-                <!-- Brand Section -->
-                <div class="col-lg-4">
-                    <div class="footer-brand mb-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="icon-circle bg-white bg-opacity-10 p-2 rounded-3 me-3">
-                                <i class="fas fa-book-open text-primary-200"></i>
-                            </div>
-                            <h5 class="mb-0 fw-bold">Pahana Edu</h5>
-                        </div>
-                        <p class="text-primary-100 mb-4">Your trusted partner in academic excellence. Discover a world of knowledge with our carefully curated collection of books and educational resources.</p>
-                        <div class="social-links">
-                            <a href="#" class="btn btn-sm bg-white bg-opacity-10 text-white me-2 rounded-circle p-2">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm bg-white bg-opacity-10 text-white me-2 rounded-circle p-2">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm bg-white bg-opacity-10 text-white me-2 rounded-circle p-2">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm bg-white bg-opacity-10 text-white rounded-circle p-2">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-white fw-semibold mb-3">Quick Links</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="/" class="text-primary-100 text-decoration-none hover-primary-50">
-                                <i class="fas fa-home me-2 opacity-75"></i>Home
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/shop" class="text-primary-100 text-decoration-none hover-primary-50">
-                                <i class="fas fa-book me-2 opacity-75"></i>Shop
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/help" class="text-primary-100 text-decoration-none hover-primary-50">
-                                <i class="fas fa-question-circle me-2 opacity-75"></i>Help
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Categories -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-white fw-semibold mb-3">Categories</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="/shop?category=textbooks" class="text-primary-100 text-decoration-none hover-primary-50">Textbooks</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/shop?category=reference" class="text-primary-100 text-decoration-none hover-primary-50">Reference</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/shop?category=fiction" class="text-primary-100 text-decoration-none hover-primary-50">Fiction</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/shop?category=science" class="text-primary-100 text-decoration-none hover-primary-50">Science</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Support -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-white fw-semibold mb-3">Support</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="/contact" class="text-primary-100 text-decoration-none hover-primary-50">Contact Us</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/faq" class="text-primary-100 text-decoration-none hover-primary-50">FAQ</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/shipping" class="text-primary-100 text-decoration-none hover-primary-50">Shipping Info</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/returns" class="text-primary-100 text-decoration-none hover-primary-50">Returns</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-white fw-semibold mb-3">Visit Us</h6>
-                    <div class="contact-info text-primary-100">
-                        <div class="mb-3">
-                            <i class="fas fa-map-marker-alt me-2 text-primary-200"></i>
-                            <small>123 Galle Road<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Colombo 03, Sri Lanka</small>
-                        </div>
-                        <div class="mb-3">
-                            <i class="fas fa-phone me-2 text-primary-200"></i>
-                            <small>+94 11 234 5678</small>
-                        </div>
-                        <div class="mb-3">
-                            <i class="fas fa-envelope me-2 text-primary-200"></i>
-                            <small>info@pahanaedu.lk</small>
-                        </div>
-                        <div>
-                            <i class="fas fa-clock me-2 text-primary-200"></i>
-                            <small>Mon-Sat: 9AM-7PM</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Bar -->
-        <div class="border-top border-white border-opacity-10">
-            <div class="container py-3">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <p class="mb-0 text-primary-100">
-                            <small>&copy; 2025 Pahana Edu Bookshop. All rights reserved.</small>
-                        </p>
-                    </div>
-                    <div class="col-md-6 text-md-end">
-                        <div class="footer-links">
-                            <a href="/privacy" class="text-primary-100 text-decoration-none me-3">
-                                <small>Privacy Policy</small>
-                            </a>
-                            <a href="/terms" class="text-primary-100 text-decoration-none me-3">
-                                <small>Terms of Service</small>
-                            </a>
-                            <a href="/cookies" class="text-primary-100 text-decoration-none">
-                                <small>Cookie Policy</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Simple Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+        <div class="container">
+            <p class="mb-0 text-muted">© 2025 Pahana Edu Bookshop. All rights reserved. Built with care for education.</p>
         </div>
     </footer>
 
@@ -852,26 +713,26 @@
         function addToCart(itemId, price, title) {
             const existingItem = cart.find(item => item.id === itemId);
             
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
+            if (!existingItem) {
                 cart.push({
                     id: itemId,
                     title: title,
-                    price: price,
-                    quantity: 1
+                    price: price
                 });
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Show success message
+                showAlert(`"${title}" added to cart!`, 'success');
+            } else {
+                // Show message if item already in cart
+                showAlert(`"${title}" is already in your cart!`, 'info');
             }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            
-            // Show success message
-            showAlert(`"${title}" added to cart!`, 'success');
         }
         
         function updateCartCount() {
-            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            const totalItems = cart.length;
             const cartBadge = document.getElementById('cartCount');
             if (cartBadge) {
                 cartBadge.textContent = totalItems;

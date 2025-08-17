@@ -430,6 +430,13 @@ public class CustomerService {
     }
     
     /**
+     * Get bill by ID
+     */
+    public Bill getBillById(String billId) {
+        return billRepository.findById(billId).orElse(null);
+    }
+    
+    /**
      * Clean up existing null phone records to avoid duplicate key errors
      */
     public void cleanupNullPhoneRecords() {

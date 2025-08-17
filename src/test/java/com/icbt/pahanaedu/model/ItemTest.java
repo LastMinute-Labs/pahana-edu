@@ -14,7 +14,7 @@ class ItemTest {
 
     @BeforeEach
     void setUp() {
-        item = new Item("Test Book", "Test Author", "Test Description", 25.99, 10, "Programming");
+        item = new Item("Test Book", "Test Author", "Test Description", 25.99, "educational");
     }
 
     @Test
@@ -24,8 +24,7 @@ class ItemTest {
         assertEquals("Test Author", item.getAuthor());
         assertEquals("Test Description", item.getDescription());
         assertEquals(25.99, item.getPrice());
-        assertEquals(10, item.getStock());
-        assertEquals("Programming", item.getCategory());
+        assertEquals("educational", item.getCategory());
         assertTrue(item.getAvailable());
     }
 
@@ -36,40 +35,11 @@ class ItemTest {
     }
 
     @Test
-    void testIsInStock() {
-        assertTrue(item.isInStock());
-        
-        item.setStock(0);
-        assertFalse(item.isInStock());
-    }
-
-    @Test
-    void testIsLowStock() {
-        item.setStock(3);
-        assertTrue(item.isLowStock());
-        
-        item.setStock(10);
-        assertFalse(item.isLowStock());
-        
-        item.setStock(0);
-        assertFalse(item.isLowStock());
-    }
-
-    @Test
-    void testAvailabilityUpdatesWithStock() {
-        item.setStock(5);
-        assertTrue(item.getAvailable());
-        
-        item.setStock(0);
-        assertFalse(item.getAvailable());
-    }
-
-    @Test
     void testToString() {
         String toString = item.toString();
         assertTrue(toString.contains("Test Book"));
         assertTrue(toString.contains("Test Author"));
         assertTrue(toString.contains("25.99"));
-        assertTrue(toString.contains("Programming"));
+        assertTrue(toString.contains("educational"));
     }
 }

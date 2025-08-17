@@ -508,7 +508,7 @@
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function updateCartCount() {
-            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            const totalItems = cart.length;
             const cartBadge = document.getElementById('cartCount');
             if (cartBadge) {
                 cartBadge.textContent = totalItems;

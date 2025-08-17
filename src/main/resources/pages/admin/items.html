@@ -146,7 +146,7 @@
               </h1>
               <p class="lead mb-4" style="color: var(--text-secondary)">
                 Manage your bookshop inventory, add new titles, update pricing,
-                and track stock levels across all categories.
+                and manage book availability across all categories.
               </p>
               <div class="d-flex gap-3">
                 <button
@@ -192,8 +192,8 @@
                   <i class="fas fa-check-circle"></i>
                 </div>
                 <div>
-                  <h6 class="mb-0 text-secondary">In Stock</h6>
-                  <span class="badge-success">Available</span>
+                  <h6 class="mb-0 text-secondary">Available</h6>
+                  <span class="badge-success">Ready</span>
                 </div>
               </div>
             </div>
@@ -224,18 +224,11 @@
               <div class="col-md-2">
                 <select class="form-select" id="filterCategory">
                   <option value="">All Categories</option>
-                  <option value="fiction">Fiction</option>
-                  <option value="non-fiction">Non-Fiction</option>
-                  <option value="textbook">Textbooks</option>
-                  <option value="reference">Reference</option>
-                </select>
-              </div>
-              <div class="col-md-2">
-                <select class="form-select" id="filterStock">
-                  <option value="">All Stock</option>
-                  <option value="in-stock">In Stock</option>
-                  <option value="low-stock">Low Stock</option>
-                  <option value="out-of-stock">Out of Stock</option>
+                  <option value="novels">Novels</option>
+                  <option value="history">History</option>
+                  <option value="scifi">Sci-Fi</option>
+                  <option value="educational">Educational</option>
+                  <option value="children">Children's</option>
                 </select>
               </div>
               <div class="col-md-4">
@@ -380,14 +373,8 @@
                     >
                       <span
                         class="book-price fw-bold"
-                        th:text="'$' + ${book.price}"
-                        >$0.00</span
-                      >
-                      <span
-                        class="badge"
-                        th:classappend="${book.stock > 10 ? 'badge-success' : (book.stock > 0 ? 'badge-warning' : 'badge-error')}"
-                        th:text="${book.stock} + ' in stock'"
-                        >0 in stock</span
+                        th:text="'Rs. ' + ${book.price}"
+                        >Rs. 0.00</span
                       >
                     </div>
                     <div class="book-actions d-grid gap-2">
@@ -427,14 +414,13 @@
                       <th>Author</th>
                       <th>Category</th>
                       <th>Price</th>
-                      <th>Stock</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:if="${books == null or books.empty}">
-                      <td colspan="7" class="text-center py-5 text-muted">
+                      <td colspan="6" class="text-center py-5 text-muted">
                         <i class="fas fa-book fa-3x mb-3 opacity-25"></i>
                         <div>
                           <h6>No books found</h6>
@@ -477,19 +463,14 @@
                           >Category</span
                         >
                       </td>
-                      <td class="fw-semibold" th:text="'$' + ${book.price}">
-                        $0.00
-                      </td>
-                      <td>
-                        <span th:text="${book.stock}">0</span>
-                        <small class="text-muted">units</small>
+                      <td class="fw-semibold" th:text="'Rs. ' + ${book.price}">
+                        Rs. 0.00
                       </td>
                       <td>
                         <span
-                          class="badge"
-                          th:classappend="${book.stock > 10 ? 'badge-success' : (book.stock > 0 ? 'badge-warning' : 'badge-error')}"
-                          th:text="${book.stock > 0} ? 'In Stock' : 'Out of Stock'"
-                          >In Stock</span
+                          class="badge badge-success"
+                          th:text="${book.available} ? 'Available' : 'Unavailable'"
+                          >Available</span
                         >
                       </td>
                       <td>
@@ -533,28 +514,10 @@
       </div>
     </section>
 
-    <!-- Modern Footer -->
-    <footer
-      class="py-4"
-      style="
-        background: var(--bg-secondary);
-        border-top: 1px solid var(--neutral-200);
-      "
-    >
+    <!-- Simple Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <p class="mb-0 text-secondary">
-              <i class="fas fa-book me-2 text-primary"></i>
-              Book Management - Pahana Edu Bookshop
-            </p>
-          </div>
-          <div class="col-md-6 text-end">
-            <p class="mb-0 text-tertiary">
-              &copy; 2025 Pahana Edu. Administrative access only.
-            </p>
-          </div>
-        </div>
+        <p class="mb-0 text-muted">© 2025 Pahana Edu Bookshop. All rights reserved. Built with care for education.</p>
       </div>
     </footer>
 
@@ -618,10 +581,11 @@
                       <label for="category" class="form-label">Category *</label>
                       <select class="form-select" id="category" name="category" required>
                         <option value="">Select Category</option>
-                        <option value="fiction">Fiction</option>
-                        <option value="non-fiction">Non-Fiction</option>
-                        <option value="textbook">Textbooks</option>
-                        <option value="reference">Reference</option>
+                        <option value="novels">Novels</option>
+                        <option value="history">History</option>
+                        <option value="scifi">Sci-Fi</option>
+                        <option value="educational">Educational</option>
+                        <option value="children">Children's</option>
                       </select>
                     </div>
                     <div class="col-md-6">
@@ -779,10 +743,11 @@
                       <label for="editCategory" class="form-label">Category *</label>
                       <select class="form-select" id="editCategory" name="category" required>
                         <option value="">Select Category</option>
-                        <option value="fiction">Fiction</option>
-                        <option value="non-fiction">Non-Fiction</option>
-                        <option value="textbook">Textbooks</option>
-                        <option value="reference">Reference</option>
+                        <option value="novels">Novels</option>
+                        <option value="history">History</option>
+                        <option value="scifi">Sci-Fi</option>
+                        <option value="educational">Educational</option>
+                        <option value="children">Children's</option>
                       </select>
                     </div>
                     <div class="col-md-6">

@@ -1,5 +1,6 @@
 package com.icbt.pahanaedu.controller;
 
+import com.icbt.pahanaedu.model.Bill;
 import com.icbt.pahanaedu.model.User;
 import com.icbt.pahanaedu.model.Item;
 import com.icbt.pahanaedu.model.Customer;
@@ -13,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.time.LocalDateTime;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
@@ -114,7 +117,12 @@ public class AdminController {
         model.addAttribute("username", username);
         
         // Add orders data
-        model.addAttribute("orders", billRepository.findAll());
+        List<Bill> orders = billRepository.findAll();
+        System.out.println("DEBUG: Found " + orders.size() + " orders in database");
+        for (Bill order : orders) {
+            System.out.println("DEBUG: Order ID: " + order.getId() + ", Customer: " + order.getCustomerName() + ", Total: " + order.getTotalAmount());
+        }
+        model.addAttribute("orders", orders);
         
         return "admin/orders";
     }
@@ -246,7 +254,6 @@ public class AdminController {
             existingItem.setAuthor(updatedItem.getAuthor());
             existingItem.setDescription(updatedItem.getDescription());
             existingItem.setPrice(updatedItem.getPrice());
-            existingItem.setStock(updatedItem.getStock());
             existingItem.setCategory(updatedItem.getCategory());
 
             // Handle image upload

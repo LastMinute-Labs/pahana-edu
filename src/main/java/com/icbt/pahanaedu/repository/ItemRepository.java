@@ -25,9 +25,6 @@ public interface ItemRepository extends MongoRepository<Item, String> {
     // Find top 8 available items ordered by title
     List<Item> findTop8ByAvailableTrueOrderByTitleAsc();
 
-    // Find items with low stock
-    List<Item> findByStockLessThanEqualAndAvailableTrue(Integer stock);
-
     // Find by ISBN
     Item findByIsbn(String isbn);
 

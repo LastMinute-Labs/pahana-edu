@@ -313,31 +313,31 @@
                     <div class="col-md-4">
                         <div class="feature-card">
                             <div class="feature-icon">
-                                <i class="fas fa-book"></i>
+                                <i class="fas fa-book-open"></i>
                             </div>
-                            <h5 class="feature-title">Academic Textbooks</h5>
-                            <p class="feature-description">Comprehensive textbooks for all academic levels and subjects.</p>
-                            <a href="/shop?category=academic" class="btn btn-outline-primary btn-sm">Browse</a>
+                            <h5 class="feature-title">Novels</h5>
+                            <p class="feature-description">Discover captivating stories and narratives for all readers.</p>
+                            <a href="/shop?category=novels" class="btn btn-outline-primary btn-sm">Browse</a>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-card">
                             <div class="feature-icon">
-                                <i class="fas fa-laptop-code"></i>
+                                <i class="fas fa-landmark"></i>
                             </div>
-                            <h5 class="feature-title">Programming & Tech</h5>
-                            <p class="feature-description">Latest programming languages and technology guides.</p>
-                            <a href="/shop?category=programming" class="btn btn-outline-primary btn-sm">Browse</a>
+                            <h5 class="feature-title">History</h5>
+                            <p class="feature-description">Explore historical events, biographies, and timelines.</p>
+                            <a href="/shop?category=history" class="btn btn-outline-primary btn-sm">Browse</a>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-card">
                             <div class="feature-icon">
-                                <i class="fas fa-brain"></i>
+                                <i class="fas fa-rocket"></i>
                             </div>
-                            <h5 class="feature-title">Reference Materials</h5>
-                            <p class="feature-description">Essential reference books for research and study.</p>
-                            <a href="/shop?category=reference" class="btn btn-outline-primary btn-sm">Browse</a>
+                            <h5 class="feature-title">Sci-Fi</h5>
+                            <p class="feature-description">Journey into futuristic and scientific adventures.</p>
+                            <a href="/shop?category=scifi" class="btn btn-outline-primary btn-sm">Browse</a>
                         </div>
                     </div>
                 </div>
@@ -371,8 +371,7 @@
           let subtotal = 0;
 
           cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
+            subtotal += item.price;
 
             cartHTML += `
                         <div class="border-bottom p-4">
@@ -395,25 +394,8 @@
                                       2
                                     )}</span>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="quantity-controls d-flex align-items-center justify-content-center">
-                                        <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(${index}, ${
-              item.quantity - 1
-            })">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <span class="mx-3 fw-bold">${
-                                          item.quantity
-                                        }</span>
-                                        <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(${index}, ${
-              item.quantity + 1
-            })">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
                                 <div class="col-md-2 text-center">
-                                    <div class="fw-bold mb-2">LKR ${itemTotal.toFixed(
+                                    <div class="fw-bold mb-2">LKR ${item.price.toFixed(
                                       2
                                     )}</div>
                                     <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${index})">
@@ -437,16 +419,6 @@
         }
 
         updateCartCount();
-      }
-
-      function updateQuantity(index, newQuantity) {
-        if (newQuantity <= 0) {
-          removeFromCart(index);
-        } else {
-          cart[index].quantity = newQuantity;
-          localStorage.setItem("cart", JSON.stringify(cart));
-          updateCartDisplay();
-        }
       }
 
       function removeFromCart(index) {
