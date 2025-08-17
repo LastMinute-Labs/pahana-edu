@@ -44,7 +44,7 @@ public class Bill {
     private Double totalAmount;
 
     // Payment information
-    private String paymentMethod; // CASH, CARD, BANK_TRANSFER, DIGITAL_WALLET
+    private String paymentMethod; // CASH, CARD
     private String paymentStatus = "PENDING"; // PENDING, PAID, FAILED, REFUNDED
     private String transactionId;
     private LocalDateTime paymentDate;
