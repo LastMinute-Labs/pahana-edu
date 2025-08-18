@@ -255,6 +255,9 @@ public class AdminController {
             existingItem.setDescription(updatedItem.getDescription());
             existingItem.setPrice(updatedItem.getPrice());
             existingItem.setCategory(updatedItem.getCategory());
+            existingItem.setIsbn(updatedItem.getIsbn());
+            existingItem.setPublisher(updatedItem.getPublisher());
+            existingItem.setPublishYear(updatedItem.getPublishYear());
 
             // Handle image upload
             if (imageFile != null && !imageFile.isEmpty()) {
@@ -413,7 +416,11 @@ public class AdminController {
 
         // Generate unique filename
         String originalFilename = file.getOriginalFilename();
-        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        if (originalFilename == null || originalFilename.isEmpty()) {
+            originalFilename = "book.jpg";
+        }
+        String extension = originalFilename.contains(".") ? 
+            originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
         String filename = System.currentTimeMillis() + extension;
 
         // Save file

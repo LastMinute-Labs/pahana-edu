@@ -573,8 +573,25 @@
                         <!-- Dynamic Items -->
                         <div th:if="${items != null and #lists.size(items) > 0}" th:each="item,itemStat : ${items}" class="col-xl-4 col-lg-6 col-md-6">
                             <div class="book-card-modern h-100">
-                                <!-- Book Cover with dynamic colors -->
-                                <div class="book-cover-modern book-cover-placeholder" 
+                                <!-- Book Cover - uploaded image or dynamic colors placeholder -->
+                                <div th:if="${item.imageUrl != null and !#strings.isEmpty(item.imageUrl)}"
+                                     class="position-relative"
+                                     style="height: 300px; overflow: hidden; border-radius: 16px 16px 0 0;">
+                                    <img th:src="${item.imageUrl}" 
+                                         th:alt="${item.title}"
+                                         style="width: 100%; height: 100%; object-fit: cover;" />
+                                    
+                                    <!-- Availability Badge -->
+                                    <div class="position-absolute top-0 end-0 m-3">
+                                        <span class="badge" 
+                                              th:classappend="${item.available} ? 'badge-success' : 'badge-danger'"
+                                              th:text="${item.available} ? 'Available' : 'Out of Stock'">
+                                            Available
+                                        </span>
+                                    </div>
+                                </div>
+                                <div th:unless="${item.imageUrl != null and !#strings.isEmpty(item.imageUrl)}"
+                                     class="book-cover-modern book-cover-placeholder" 
                                      th:class="'book-cover-modern book-cover-placeholder book-cover-' + (${itemStat.index % 4} + 1)">
                                     <div class="book-cover-content">
                                         <i class="fas fa-book-open text-white fs-1 mb-3"></i>
