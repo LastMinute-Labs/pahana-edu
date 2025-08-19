@@ -225,16 +225,28 @@ public class HomeController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/login";
         }
-        
-        String customerName = authentication.getName();
-        
-        // Get user's orders
-        List<Bill> orders = customerService.getOrdersByCustomerName(customerName);
-        
+
+        String username = authentication.getName();
+        Optional<User> userOpt = userService.findByUsername(username);
+        List<Bill> orders = List.of();
+        String email = null;
+        String phone = null;
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            email = user.getEmail();
+            phone = user.getPhone();
+            // Prefer email, fallback to phone
+            if (email != null && !email.isEmpty()) {
+                orders = customerService.getCustomerOrderHistory(email);
+            } else if (phone != null && !phone.isEmpty()) {
+                orders = customerService.getCustomerOrderHistory(phone);
+            }
+        }
+
         model.addAttribute("appName", "Pahana Edu Bookshop - My Orders");
-        model.addAttribute("username", customerName);
+        model.addAttribute("username", username);
         model.addAttribute("orders", orders);
-        
+
         return "user/orders";
     }
 }
