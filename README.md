@@ -47,7 +47,7 @@ A web-based billing and inventory management system for Pahana Edu Bookshop in C
 ### Installation
 1. Clone the repository
    ```bash
-   git clone https://github.com/LastMinute-Labs/pahana-edu.git
+   git clone https://github.com/sandeepa2034/pahana-edu.git
    cd pahana-edu
    ```
 
